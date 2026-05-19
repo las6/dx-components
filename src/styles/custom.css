@@ -1,11 +1,19 @@
+.site-title img {
+  width: 1.5em;
+  height: 1.5em;
+}
+
 .sl-markdown-content button {
-  margin-top: 0;
+	margin-top: 0;
 }
 
 [data-dx-preset] .dx-error,
 [data-dx-preset] .dx-error-page,
 [data-dx-preset] .dx-not-found,
 [data-dx-preset] .dx-pending {
-  min-height: auto;
+	min-height: auto;
 }
 
+.expressive-code pre {
+	max-height: 66dvh;
+}
