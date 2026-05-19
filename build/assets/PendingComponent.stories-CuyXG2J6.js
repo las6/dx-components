@@ -1,1 +1,0 @@
-import{j as t}from"./index-DVR4eZYB.js";import{P as e}from"./PendingComponent-BBf9zbjF.js";const d={title:"PendingComponent"},m=()=>t.jsx(e,{});typeof window<"u"&&window.document&&window.document.createElement&&document.documentElement.setAttribute("data-storyloaded","");export{m as Default,d as default};

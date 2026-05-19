@@ -38,7 +38,7 @@ import {
   watchEffect
 } from "./chunk-UHRETBQL.js";
 
-// node_modules/.pnpm/@vueuse+shared@14.3.0_vue@3.5.34/node_modules/@vueuse/shared/dist/index.js
+// node_modules/@vueuse/shared/dist/index.js
 function computedEager(fn, options) {
   var _options$flush;
   const result = shallowRef();
@@ -1390,7 +1390,7 @@ function whenever(source, cb, options) {
   return stop;
 }
 
-// node_modules/.pnpm/@vueuse+core@14.3.0_vue@3.5.34/node_modules/@vueuse/core/dist/index.js
+// node_modules/@vueuse/core/dist/index.js
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   var _globalThis$reportErr;
   let options;

@@ -1,2 +1,4 @@
-node_modules
-dev/node_modules
+node_modules/
+build/
+dev/dist/
+docs/.vitepress/dist/
