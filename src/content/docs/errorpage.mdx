@@ -4,6 +4,7 @@ title: ErrorPage
 
 import ThemePresets from "../../components/ThemePresets";
 import { ErrorPage } from "../../../components/ErrorPage";
+import ErrorPageSrc from "../../../components/ErrorPage.tsx?raw";
 
 Clean, production-facing error page. No stack traces — designed for end users. Shown automatically by ErrorComponent in prod mode, or used standalone.
 
@@ -21,7 +22,9 @@ Clean, production-facing error page. No stack traces — designed for end users.
 
 ### Source
 
-Source is available in the [`components/` directory on GitHub](https://github.com/las6/dx-components/tree/main/components).
+```tsx
+{ErrorPageSrc}
+```
 
 ### Usage
 

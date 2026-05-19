@@ -1,3 +1,8 @@
 .sl-markdown-content pre {
   max-height: 80dvh;
 }
+
+.sl-markdown-content button {
+  margin-top: 0;
+}
+
