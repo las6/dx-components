@@ -1,0 +1,1 @@
+import{j as t}from"./index-DVR4eZYB.js";import{N as o}from"./NotFoundComponent-vArUQHf4.js";const d={title:"NotFoundComponent"},m=()=>t.jsx(o,{});typeof window<"u"&&window.document&&window.document.createElement&&document.documentElement.setAttribute("data-storyloaded","");export{m as Default,d as default};

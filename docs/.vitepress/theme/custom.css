@@ -1,4 +1,0 @@
-div[class*="language-"] {
-  max-height: 80dvh;
-  overflow: auto;
-}

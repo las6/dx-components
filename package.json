@@ -18,8 +18,9 @@
   },
   "scripts": {
     "dev": "vite --config dev/vite.config.ts",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs"
+    "ladle": "ladle serve",
+    "ladle:build": "ladle build",
+    "ladle:preview": "ladle preview"
   },
   "license": "MIT",
   "repository": {
@@ -29,8 +30,8 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@ladle/react": "^5.1.1",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "vitepress": "2.0.0-alpha.17"
+    "react-dom": "^19.2.6"
   }
 }

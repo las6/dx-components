@@ -1,0 +1,186 @@
+import { Meta } from "@ladle/react";
+import { ErrorComponent } from "../components/ErrorComponent";
+import { ErrorPage } from "../components/ErrorPage";
+import { NotFoundComponent } from "../components/NotFoundComponent";
+import { PendingComponent } from "../components/PendingComponent";
+
+<Meta title="dx-components" />
+
+# dx-components
+
+Copy-paste-ready DX components for the Vite + TanStack ecosystem — filling gaps that Next.js handles natively.
+
+## ErrorComponent
+
+Dev-friendly error overlay with parseable stack frames, chained `cause` display, copy-to-clipboard, and own-code line highlighting. Auto-detects `import.meta.env.PROD` and delegates to `ErrorPage` in production.
+
+- **`mode: "dev"`** (default) — full dark overlay with call stack and chained errors
+- **`mode: "prod"`** — delegates to `ErrorPage` for a clean user-facing display
+
+<div style={{ background: "#0d0d0d", minHeight: "60dvh", padding: "1rem" }}>
+  <ErrorComponent
+    error={new Error("Could not load user data — database connection refused")}
+    reset={() => {}}
+    subtitle="Loader or server function threw"
+  />
+</div>
+
+**Props:** `error` (unknown), `reset` (() => void), `subtitle?` (string), `mode?` ("dev" | "prod")
+
+---
+
+## ErrorPage
+
+Clean, production-facing error page. No stack traces — designed for end users. Shown automatically by `ErrorComponent` in prod mode, or used standalone.
+
+<div style={{ background: "#0d0d0d", minHeight: "40dvh", padding: "1rem" }}>
+  <ErrorPage />
+</div>
+
+**Props:** `reset?` (() => void), `title?` (string), `message?` (string)
+
+---
+
+## NotFoundComponent
+
+404 page template. Use as `notFoundComponent` on any route.
+
+<div style={{ background: "#0d0d0d", minHeight: "40dvh", padding: "1rem" }}>
+  <NotFoundComponent />
+</div>
+
+---
+
+## PendingComponent
+
+Route loading skeleton. Animated "Loading..." dots. Use as `pendingComponent` on routes with slow data.
+
+<div style={{ background: "#0d0d0d", minHeight: "40dvh", padding: "1rem" }}>
+  <PendingComponent />
+</div>
+
+---
+
+## Installation
+
+### Copy-paste (recommended)
+
+Copy the source files from the [`components/`](https://github.com/las6/dx-components/tree/main/components) directory into your project.
+
+### npm install
+
+```bash
+npm install github:las6/dx-components
+```
+
+```tsx
+import { ErrorComponent } from "dx-components/components/ErrorComponent";
+import { ErrorPage } from "dx-components/components/ErrorPage";
+import { NotFoundComponent } from "dx-components/components/NotFoundComponent";
+import { PendingComponent } from "dx-components/components/PendingComponent";
+```
+
+---
+
+## Usage
+
+### TanStack Router (SPA)
+
+Use directly as `errorComponent`, `notFoundComponent`, or `pendingComponent`:
+
+```tsx
+import { createRootRoute } from "@tanstack/react-router";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+export const Route = createRootRoute({
+  errorComponent: ErrorComponent,
+});
+```
+
+### TanStack Start (SSR)
+
+The **root route** requires an HTML shell wrapper for `errorComponent` and `notFoundComponent`:
+
+```tsx
+import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+function RootErrorShell(props: ErrorComponentProps) {
+  return (
+    <html lang="en">
+      <head><HeadContent /></head>
+      <body style={{ margin: 0, background: "#0d0d0d" }}>
+        <ErrorComponent {...props} />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export const Route = createRootRoute({
+  errorComponent: RootErrorShell,
+});
+```
+
+`pendingComponent` never needs an HTML shell — it renders inside the parent layout.
+
+---
+
+## Error Reporting
+
+Integrate an error tracking SDK (e.g. [Centry](https://github.com/las6/centry-client)) by wrapping `errorComponent`:
+
+```tsx
+import { useEffect } from "react";
+import { captureException } from "centry-client";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+function RootErrorComponent(props: ErrorComponentProps) {
+  useEffect(() => {
+    captureException(props.error);
+  }, [props.error]);
+
+  return <ErrorComponent {...props} />;
+}
+```
+
+Initialize centry once at app startup:
+
+```ts
+import { init, installGlobalHandlers } from "centry-client";
+
+const centryClient = init({
+  project: "my-project",
+  enabled: import.meta.env.PROD,
+});
+installGlobalHandlers(centryClient);
+```
+
+---
+
+## Theming
+
+All components use scoped `<style>` blocks with CSS custom properties. Override any variable on a parent wrapper or `:root`:
+
+| Variable | Purpose | Dark default |
+|---|---|---|
+| `--dx-bg` | Page background | `#0d0d0d` |
+| `--dx-text` | Primary text | `#e8e8e8` |
+| `--dx-muted` | Secondary text | `#888` |
+| `--dx-accent` | Error/accent | `#c00` |
+| `--dx-surface` | Card background | `#161616` |
+| `--dx-border` | Border color | `#2a2a2a` |
+| `--dx-font` | Font family | `"Geist Mono", monospace` |
+
+Use the preset switcher (top-right of the story canvas) to preview themes: **Dark**, **Light**, **Minimal**, **Inherit**.
+
+To force a theme, copy the preset block into your global CSS or a parent wrapper. Components auto-detect `prefers-color-scheme: light` for their defaults.
+
+---
+
+## Design
+
+- **Inline styles** — zero dependencies, no Tailwind or CSS imports
+- **Dark theme** — monospace font stack, `100dvh` min-height
+- **Self-contained** — each file is a single `.tsx` with its own `<style>` block
+- **No build step** — ships as source; your bundler handles TypeScript + JSX
