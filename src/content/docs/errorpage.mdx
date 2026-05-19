@@ -3,7 +3,7 @@ title: ErrorPage
 ---
 
 import ThemePresets from "../../components/ThemePresets";
-import SourceCode from "../../components/SourceCode.astro";
+import { Code } from "@astrojs/starlight/components";
 import { ErrorPage } from "../../../components/ErrorPage";
 import ErrorPageSrc from "../../../components/ErrorPage.tsx?raw";
 
@@ -23,7 +23,7 @@ Clean, production-facing error page. No stack traces — designed for end users.
 
 ### Source
 
-<SourceCode code={ErrorPageSrc} />
+<Code code={ErrorPageSrc} lang="tsx" />
 
 ### Usage
 

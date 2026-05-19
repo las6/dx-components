@@ -2,3 +2,10 @@
   margin-top: 0;
 }
 
+[data-dx-preset] .dx-error,
+[data-dx-preset] .dx-error-page,
+[data-dx-preset] .dx-not-found,
+[data-dx-preset] .dx-pending {
+  min-height: auto;
+}
+

@@ -3,7 +3,7 @@ title: NotFoundComponent
 ---
 
 import ThemePresets from "../../components/ThemePresets";
-import SourceCode from "../../components/SourceCode.astro";
+import { Code } from "@astrojs/starlight/components";
 import { NotFoundComponent } from "../../../components/NotFoundComponent";
 import NotFoundSrc from "../../../components/NotFoundComponent.tsx?raw";
 
@@ -15,7 +15,7 @@ import NotFoundSrc from "../../../components/NotFoundComponent.tsx?raw";
 
 ### Source
 
-<SourceCode code={NotFoundSrc} />
+<Code code={NotFoundSrc} lang="tsx" />
 
 ### Usage
 

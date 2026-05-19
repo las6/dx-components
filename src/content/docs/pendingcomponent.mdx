@@ -3,7 +3,7 @@ title: PendingComponent
 ---
 
 import ThemePresets from "../../components/ThemePresets";
-import SourceCode from "../../components/SourceCode.astro";
+import { Code } from "@astrojs/starlight/components";
 import { PendingComponent } from "../../../components/PendingComponent";
 import PendingSrc from "../../../components/PendingComponent.tsx?raw";
 
@@ -15,7 +15,7 @@ Route loading skeleton with animated "Loading..." dots. Renders inside the paren
 
 ### Source
 
-<SourceCode code={PendingSrc} />
+<Code code={PendingSrc} lang="tsx" />
 
 ### Usage
 
