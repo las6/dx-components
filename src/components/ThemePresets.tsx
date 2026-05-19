@@ -54,71 +54,69 @@ const PRESET_CSS = `
 `;
 
 const LABELS: Record<Preset, string> = {
-  dark: "Dark",
-  light: "Light",
-  minimal: "Minimal",
-  inherit: "Inherit",
+	dark: "Dark",
+	light: "Light",
+	minimal: "Minimal",
+	inherit: "Inherit",
 };
 
 interface Props {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export default function ThemePresets({ children }: Props) {
-  const [preset, setPreset] = useState<Preset>("dark");
+	const [preset, setPreset] = useState<Preset>("dark");
 
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.id = "dx-preset-css";
-    style.textContent = PRESET_CSS;
-    if (!document.getElementById("dx-preset-css")) {
-      document.head.appendChild(style);
-    }
-    return () => {
-      const el = document.getElementById("dx-preset-css");
-      if (el) el.remove();
-    };
-  }, []);
+	useEffect(() => {
+		const style = document.createElement("style");
+		style.id = "dx-preset-css";
+		style.textContent = PRESET_CSS;
+		if (!document.getElementById("dx-preset-css")) {
+			document.head.appendChild(style);
+		}
+		return () => {
+			const el = document.getElementById("dx-preset-css");
+			if (el) el.remove();
+		};
+	}, []);
 
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          gap: "0.25rem",
-          padding: "0.5rem",
-          background: "var(--sl-color-gray-6)",
-          borderRadius: "0.5rem",
-          marginBottom: "1rem",
-        }}
-      >
-        {(Object.keys(LABELS) as Preset[]).map((key) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => setPreset(key)}
-            style={{
-              padding: "0.25rem 0.75rem",
-              border: "none",
-              borderRadius: "0.375rem",
-              cursor: "pointer",
-              fontSize: "0.8125rem",
-              fontFamily: "inherit",
-              background:
-                preset === key
-                  ? "var(--sl-color-accent)"
-                  : "transparent",
-              color:
-                preset === key
-                  ? "var(--sl-color-white)"
-                  : "var(--sl-color-gray-2)",
-            }}
-          >
-            {LABELS[key]}
-          </button>
-        ))}
-      </div>
-      <div data-dx-preset={preset}>{children}</div>
-    </>
-  );
+	return (
+		<>
+			<div
+				style={{
+					display: "flex",
+					gap: "0.25rem",
+					padding: "0.5rem",
+					background: "var(--sl-color-gray-6)",
+					borderRadius: "0.5rem",
+					marginBottom: "1rem",
+				}}
+			>
+				{(Object.keys(LABELS) as Preset[]).map((key) => (
+					<button
+						key={key}
+						type="button"
+						onClick={() => setPreset(key)}
+						style={{
+							padding: "0.25rem 0.75rem",
+							border: "none",
+							borderRadius: "0.375rem",
+							cursor: "pointer",
+							fontSize: "0.8125rem",
+							fontFamily: "inherit",
+							background:
+								preset === key ? "var(--sl-color-accent)" : "transparent",
+							color:
+								preset === key
+									? "var(--sl-color-black)"
+									: "var(--sl-color-gray-2)",
+						}}
+					>
+						{LABELS[key]}
+					</button>
+				))}
+			</div>
+			<div data-dx-preset={preset}>{children}</div>
+		</>
+	);
 }

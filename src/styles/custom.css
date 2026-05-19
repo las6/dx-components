@@ -1,6 +1,6 @@
 .site-title img {
-  width: 1.5em;
-  height: 1.5em;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 .sl-markdown-content button {
@@ -16,4 +16,34 @@
 
 .expressive-code pre {
 	max-height: 66dvh;
+}
+
+/* Dark mode colors. */
+:root {
+	--sl-color-accent-low: #002c1c;
+	--sl-color-accent: #007d57;
+	--sl-color-accent-high: #a4d6bd;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e7eff2;
+	--sl-color-gray-2: #bac4c7;
+	--sl-color-gray-3: #7c8f96;
+	--sl-color-gray-4: #4a5b61;
+	--sl-color-gray-5: #2a3b41;
+	--sl-color-gray-6: #192a2f;
+	--sl-color-black: #121a1c;
+}
+/* Light mode colors. */
+:root[data-theme="light"] {
+	--sl-color-accent-low: #bce1ce;
+	--sl-color-accent: #007953;
+	--sl-color-accent-high: #003d28;
+	--sl-color-white: #121a1c;
+	--sl-color-gray-1: #192a2f;
+	--sl-color-gray-2: #2a3b41;
+	--sl-color-gray-3: #4a5b61;
+	--sl-color-gray-4: #7c8f96;
+	--sl-color-gray-5: #bac4c7;
+	--sl-color-gray-6: #e7eff2;
+	--sl-color-gray-7: #f3f7f8;
+	--sl-color-black: #ffffff;
 }
