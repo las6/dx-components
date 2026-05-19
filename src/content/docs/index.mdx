@@ -1,0 +1,64 @@
+---
+title: ErrorComponent
+---
+
+import ThemePresets from "../../components/ThemePresets";
+import { ErrorComponent } from "../../../components/ErrorComponent";
+
+Dev-friendly error overlay with parseable stack frames, chained `cause` display, copy-to-clipboard, and own-code line highlighting.
+
+- **`mode: "dev"`** (default) — full dark overlay with call stack and chained errors
+- **`mode: "prod"`** — auto-detects `import.meta.env.PROD` and delegates to ErrorPage
+
+<ThemePresets client:load>
+  <ErrorComponent
+    error={new Error("Could not load user data — database connection refused")}
+    reset={() => {}}
+    subtitle="Loader or server function threw"
+  />
+</ThemePresets>
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `error` | `unknown` | The thrown error |
+| `reset` | `() => void` | Retry callback |
+| `subtitle?` | `string` | Optional subtitle shown next to the error badge |
+| `mode?` | `"dev" \| "prod"` | Display mode. Defaults to auto-detect |
+
+### Source
+
+Source is available in the [`components/` directory on GitHub](https://github.com/las6/dx-components/tree/main/components).
+
+### Usage
+
+**TanStack Router (SPA):** use directly as `errorComponent`.
+
+```tsx
+import { createRootRoute } from "@tanstack/react-router";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+export const Route = createRootRoute({
+  errorComponent: ErrorComponent,
+});
+```
+
+**TanStack Start (root route):** wrap in HTML shell.
+
+```tsx
+import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+function RootErrorShell(props: ErrorComponentProps) {
+  return (
+    <html lang="en">
+      <head><HeadContent /></head>
+      <body style={{ margin: 0, background: "#0d0d0d" }}>
+        <ErrorComponent {...props} />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+```

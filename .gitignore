@@ -1,4 +1,5 @@
 node_modules/
-build/
+dist/
 dev/dist/
-docs/.vitepress/dist/
+dev/node_modules/
+.astro/

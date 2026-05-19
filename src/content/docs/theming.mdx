@@ -1,0 +1,79 @@
+---
+title: Theming
+---
+
+All components use scoped `<style>` blocks with CSS custom properties. Override the variables on a parent wrapper or `:root` to theme every component at once.
+
+## Variables
+
+| Variable | Purpose | Dark default |
+|---|---|---|
+| `--dx-bg` | Page background | `#0d0d0d` |
+| `--dx-text` | Primary text | `#e8e8e8` |
+| `--dx-muted` | Secondary text | `#888` |
+| `--dx-accent` | Error/accent color | `#c00` |
+| `--dx-surface` | Card/panel background | `#161616` |
+| `--dx-border` | Border color | `#2a2a2a` |
+| `--dx-font` | Font family | `"Geist Mono", monospace` |
+
+## Presets
+
+Copy any of these blocks into your global CSS. Each component page has a live preset switcher to preview them.
+
+### Dark (default)
+
+```css
+.dx-error, .dx-error-page, .dx-not-found, .dx-pending {
+  --dx-bg: #0d0d0d;
+  --dx-text: #e8e8e8;
+  --dx-muted: #888;
+  --dx-accent: #c00;
+  --dx-surface: #161616;
+  --dx-border: #2a2a2a;
+  --dx-font: "Geist Mono", monospace;
+}
+```
+
+### Light
+
+```css
+.dx-error, .dx-error-page, .dx-not-found, .dx-pending {
+  --dx-bg: #fff;
+  --dx-text: #111;
+  --dx-muted: #666;
+  --dx-accent: #d00;
+  --dx-surface: #f5f5f5;
+  --dx-border: #ddd;
+  --dx-font: system-ui, -apple-system, sans-serif;
+}
+```
+
+### Minimal
+
+```css
+.dx-error, .dx-error-page, .dx-not-found, .dx-pending {
+  --dx-bg: transparent;
+  --dx-text: currentColor;
+  --dx-muted: #999;
+  --dx-accent: #e00;
+  --dx-surface: transparent;
+  --dx-border: transparent;
+  --dx-font: inherit;
+}
+```
+
+### Inherit
+
+```css
+.dx-error, .dx-error-page, .dx-not-found, .dx-pending {
+  --dx-bg: inherit;
+  --dx-text: inherit;
+  --dx-muted: inherit;
+  --dx-accent: inherit;
+  --dx-surface: inherit;
+  --dx-border: inherit;
+  --dx-font: inherit;
+}
+```
+
+Components auto-detect `prefers-color-scheme: light` in their defaults. Override the variables to force a single mode.

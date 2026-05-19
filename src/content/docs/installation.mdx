@@ -1,0 +1,24 @@
+---
+title: Installation
+---
+
+## Copy-paste (recommended)
+
+Copy the source files from the [`components/`](https://github.com/las6/dx-components/tree/main/components) directory into your project.
+
+Each file is a self-contained `.tsx` with its own `<style>` block and BEM class names. No external dependencies beyond React.
+
+## npm install
+
+```bash
+npm install github:las6/dx-components
+```
+
+```tsx
+import { ErrorComponent } from "dx-components/components/ErrorComponent";
+import { ErrorPage } from "dx-components/components/ErrorPage";
+import { NotFoundComponent } from "dx-components/components/NotFoundComponent";
+import { PendingComponent } from "dx-components/components/PendingComponent";
+```
+
+Components ship as source `.tsx` — your bundler handles TypeScript and JSX.

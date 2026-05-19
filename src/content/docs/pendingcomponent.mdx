@@ -1,0 +1,29 @@
+---
+title: PendingComponent
+---
+
+import ThemePresets from "../../components/ThemePresets";
+import { PendingComponent } from "../../../components/PendingComponent";
+
+Route loading skeleton with animated "Loading..." dots. Renders inside the parent layout — **no HTML shell needed**, even in TanStack Start.
+
+<ThemePresets client:load>
+  <PendingComponent />
+</ThemePresets>
+
+### Source
+
+Source is available in the [`components/` directory on GitHub](https://github.com/las6/dx-components/tree/main/components).
+
+### Usage
+
+```tsx
+import { createFileRoute } from "@tanstack/react-router";
+import { PendingComponent } from "./components/PendingComponent";
+
+export const Route = createFileRoute("/slow")({
+  loader: () => fetchSlowData(),
+  pendingComponent: PendingComponent,
+  pendingMs: 200,
+});
+```

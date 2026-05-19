@@ -1,0 +1,43 @@
+---
+title: ErrorPage
+---
+
+import ThemePresets from "../../components/ThemePresets";
+import { ErrorPage } from "../../../components/ErrorPage";
+
+Clean, production-facing error page. No stack traces — designed for end users. Shown automatically by ErrorComponent in prod mode, or used standalone.
+
+<ThemePresets client:load>
+  <ErrorPage />
+</ThemePresets>
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `reset?` | `() => void` | Retry callback. Falls back to `window.location.reload()` |
+| `title?` | `string` | Heading text. Default: "This page couldn't load" |
+| `message?` | `string` | Subtitle text. Default: "Something went wrong." |
+
+### Source
+
+Source is available in the [`components/` directory on GitHub](https://github.com/las6/dx-components/tree/main/components).
+
+### Usage
+
+```tsx
+import { createRootRoute } from "@tanstack/react-router";
+import { ErrorPage } from "./components/ErrorPage";
+
+export const Route = createRootRoute({
+  errorComponent: () => <ErrorPage />,
+});
+```
+
+Or with a reset callback:
+
+```tsx
+function RootErrorComponent({ reset }: ErrorComponentProps) {
+  return <ErrorPage reset={reset} />;
+}
+```

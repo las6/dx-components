@@ -18,8 +18,8 @@
   },
   "scripts": {
     "dev": "vite --config dev/vite.config.ts",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs"
+    "docs:dev": "astro dev",
+    "docs:build": "astro build"
   },
   "license": "MIT",
   "repository": {
@@ -31,6 +31,8 @@
     "@types/react-dom": "^19.2.3",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "vitepress": "2.0.0-alpha.17"
+    "@astrojs/react": "^5.0.5",
+    "@astrojs/starlight": "^0.39.2",
+    "astro": "^6.3.5"
   }
 }

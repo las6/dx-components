@@ -1,0 +1,39 @@
+---
+title: Error Reporting
+---
+
+Integrate an error tracking SDK (e.g. [Centry](https://github.com/las6/centry-client)) by wrapping the `errorComponent` and calling the report function inside `useEffect`:
+
+```tsx
+import { useEffect } from "react";
+import { captureException } from "centry-client";
+import { ErrorComponent } from "./components/ErrorComponent";
+
+function RootErrorComponent(props: ErrorComponentProps) {
+  useEffect(() => {
+    captureException(props.error);
+  }, [props.error]);
+
+  return <ErrorComponent {...props} />;
+}
+
+export const Route = createRootRoute({
+  errorComponent: RootErrorComponent,
+});
+```
+
+## Centry setup
+
+Initialize centry once at app startup, before hydration:
+
+```ts
+import { init, installGlobalHandlers } from "centry-client";
+
+const centryClient = init({
+  project: "my-project",
+  enabled: import.meta.env.PROD,
+});
+installGlobalHandlers(centryClient);
+```
+
+This pattern works with any error reporting SDK — just call the report function inside `useEffect` on the error prop.
