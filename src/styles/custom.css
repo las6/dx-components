@@ -20,6 +20,8 @@
 
 /* Dark mode colors. */
 :root {
+	--lego-yellow: #fac80a; /* alternative accent color */
+
 	--sl-color-accent-low: #002c1c;
 	--sl-color-accent: #007d57;
 	--sl-color-accent-high: #a4d6bd;

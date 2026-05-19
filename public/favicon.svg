@@ -6,7 +6,7 @@
 	color="#fff"
 >
   <rect width="256" height="256" rx="48" fill="#007953" />
-  <g transform="scale(0.8) translate(32,32)">
+  <g transform="scale(0.8) translate(36,32)">
     <line
 			x1="80"
 			y1="160"
