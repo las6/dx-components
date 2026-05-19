@@ -3,6 +3,7 @@ title: ErrorComponent
 ---
 
 import ThemePresets from "../../components/ThemePresets";
+import SourceCode from "../../components/SourceCode.astro";
 import { ErrorComponent } from "../../../components/ErrorComponent";
 import ErrorSrc from "../../../components/ErrorComponent.tsx?raw";
 
@@ -30,9 +31,7 @@ Dev-friendly error overlay with parseable stack frames, chained `cause` display,
 
 ### Source
 
-```tsx
-{ErrorSrc}
-```
+<SourceCode code={ErrorSrc} />
 
 ### Usage
 

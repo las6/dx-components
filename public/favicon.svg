@@ -1,6 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="32" height="32">
-  <rect width="256" height="256" rx="48" fill="#6366f1"/>
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 256 256"
+	width="32"
+	height="32"
+>
+  <rect width="256" height="256" rx="48" fill="#6366f1" />
   <g transform="scale(0.9) translate(13, 13)">
-    <path fill="#ffffff" d="M224.5,105.5l-88-48a12,12,0,0,0-11,0l-90,48A12,12,0,0,0,30,116v24a12,12,0,0,0,5.5,10.5l90,48a12,12,0,0,0,11,0l88-48A12,12,0,0,0,230,140V116A12,12,0,0,0,224.5,105.5ZM134,59l76.6,42L134,141.7,57.4,101ZM54,114.5l76,41.5v78.7L57.4,194.5A12,12,0,0,1,54,186Zm126,72L134,229.7V151l76-41.5v67.2A12,12,0,0,1,206.6,186Z"/>
+  <line
+			x1="80"
+			y1="160"
+			x2="80"
+			y2="224"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/><ellipse
+			cx="80"
+			cy="100"
+			rx="32"
+			ry="20"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/><ellipse
+			cx="160"
+			cy="60"
+			rx="32"
+			ry="20"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/><polyline
+			points="16 128 80 160 240 80 191.23 55.61"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/><line
+			x1="132.19"
+			y1="69.9"
+			x2="101.56"
+			y2="85.22"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/><polyline
+			points="240 80 240 144 80 224 16 192 16 128 52.19 109.9"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		/>
   </g>
 </svg>

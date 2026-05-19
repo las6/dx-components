@@ -1,0 +1,17 @@
+---
+export interface Props {
+  code: string;
+  lang?: string;
+}
+
+const { code, lang = "tsx" } = Astro.props;
+---
+<pre><code class={`language-${lang}`}>{code}</code></pre>
+
+<style>
+  pre {
+    max-height: 80dvh;
+    overflow: auto;
+    border-radius: 0.5rem;
+  }
+</style>
