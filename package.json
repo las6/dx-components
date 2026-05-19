@@ -1,0 +1,36 @@
+{
+  "name": "dx-components",
+  "version": "1.0.0",
+  "description": "Copy-paste-ready DX components for Vite + TanStack",
+  "type": "module",
+  "exports": {
+    "./components/ErrorComponent": "./components/ErrorComponent.tsx",
+    "./components/NotFoundComponent": "./components/NotFoundComponent.tsx",
+    "./components/PendingComponent": "./components/PendingComponent.tsx",
+    "./components/ErrorPage": "./components/ErrorPage.tsx"
+  },
+  "files": [
+    "components/"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "scripts": {
+    "dev": "vite --config dev/vite.config.ts",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/las6/dx-components"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "vitepress": "2.0.0-alpha.17"
+  }
+}
