@@ -8,7 +8,9 @@ export default defineConfig({
     starlight({
       title: "dx-components",
       description: "Copy-paste-ready DX components for Vite + TanStack",
-      favicon: "/favicon.svg",
+      head: [
+        { tag: "link", attrs: { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" } },
+      ],
       logo: {
         src: "./public/favicon.svg",
         alt: "dx-components",
