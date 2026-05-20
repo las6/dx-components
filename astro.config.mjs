@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 
 export default defineConfig({
-  site: "https://las6.github.io/dx-components",
+  site: "https://dx-components.pages.dev",
   integrations: [
     starlight({
       title: "dx-components",
