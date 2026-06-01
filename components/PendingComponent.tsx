@@ -34,6 +34,7 @@ const STYLES = `
     & .dx-pending__text {
       color: var(--dx-muted);
       font-size: 0.875rem;
+      transition: opacity 0.2s ease;
     }
   }
 `;
@@ -51,8 +52,15 @@ export function PendingComponent() {
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-pending" data-dx-version="1.0.0">
-        <span className="dx-pending__text">Loading{dots}</span>
+      <div
+        className="dx-pending"
+        data-dx-version="1.0.0"
+        role="status"
+        aria-label="Loading"
+      >
+        <span className="dx-pending__text">
+          Loading<span aria-hidden="true">{dots}</span>
+        </span>
       </div>
     </>
   );
