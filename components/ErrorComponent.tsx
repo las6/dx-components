@@ -1,5 +1,5 @@
-// @dx-components v1.0.0
-import { useState } from "react";
+// @source dx-components/ErrorComponent v1.2
+import { useState, useCallback, useEffect } from "react";
 import { ErrorPage } from "./ErrorPage";
 
 const STYLES = `
@@ -134,10 +134,32 @@ const STYLES = `
       border-radius: 0.25rem;
       background: #1a1a1a;
       color: #ccc;
+      transition: all 0.2s ease;
     }
 
     & .dx-error__btn--copy[data-copied="true"] {
       color: #4ade80;
+      border-color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    & .dx-error__kbd {
+      display: inline-block;
+      padding: 0.125em 0.35em;
+      font-size: 0.625rem;
+      font-family: var(--dx-font);
+      background: #333;
+      color: #888;
+      border: 1px solid #444;
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+
+    & .dx-error__btn:hover .dx-error__kbd,
+    & .dx-error__btn:focus-within .dx-error__kbd {
+      opacity: 1;
     }
   }
 `;
@@ -269,17 +291,40 @@ function DevErrorDisplay({
 
   const copyText = allMessages.join("\n\nCaused by: ") + "\n\n" + allStack;
 
-  function handleCopy() {
+  const handleCopy = useCallback(() => {
     copyToClipboard(copyText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
-  }
+  }, [copyText]);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      ) {
+        return;
+      }
+
+      if (e.key.toLowerCase() === "c") {
+        handleCopy();
+      } else if (e.key.toLowerCase() === "r") {
+        reset();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleCopy, reset]);
 
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error" data-dx-version="1.0.0">
+      <div className="dx-error" data-dx-version="1.2">
         <ErrorBlock label="Error" message={message} stack={stack} />
 
         {subtitle && (
@@ -305,10 +350,11 @@ function DevErrorDisplay({
             className="dx-error__btn dx-error__btn--copy"
             data-copied={copied}
           >
-            {copied ? "Copied!" : "Copy error"}
+            {copied ? "Copied!" : "Copy error"}{" "}
+            <kbd className="dx-error__kbd">C</kbd>
           </button>
           <button type="button" onClick={reset} className="dx-error__btn">
-            Try again
+            Try again <kbd className="dx-error__kbd">R</kbd>
           </button>
         </div>
       </div>
