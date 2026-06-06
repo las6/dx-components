@@ -1,4 +1,4 @@
-// @source dx-components/ErrorPage v1.2
+// @source dx-components/ErrorPage v1.2.0
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -108,7 +108,7 @@ export function ErrorPage({
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error-page" data-dx-version="1.2">
+      <div className="dx-error-page" data-dx-version="1.2.0">
         <div className="dx-error-page__card">
           <div className="dx-error-page__icon">
             <span className="dx-error-page__icon-mark">!</span>

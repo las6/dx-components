@@ -1,4 +1,4 @@
-// @source dx-components/ErrorComponent v1.2
+// @source dx-components/ErrorComponent v1.2.0
 import { useState, useCallback, useEffect } from "react";
 import { ErrorPage } from "./ErrorPage";
 
@@ -324,7 +324,7 @@ function DevErrorDisplay({
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error" data-dx-version="1.2">
+      <div className="dx-error" data-dx-version="1.2.0">
         <ErrorBlock label="Error" message={message} stack={stack} />
 
         {subtitle && (

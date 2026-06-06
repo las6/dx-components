@@ -1,0 +1,18 @@
+---
+import pkg from "../../package.json";
+---
+
+<span class="version-badge">v{pkg.version}</span>
+
+<style>
+  .version-badge {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2);
+    border-radius: 0.25rem;
+    vertical-align: middle;
+  }
+</style>

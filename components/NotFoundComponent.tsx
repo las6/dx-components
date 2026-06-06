@@ -1,4 +1,4 @@
-// @source dx-components/NotFoundComponent v1.2
+// @source dx-components/NotFoundComponent v1.2.0
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -84,7 +84,7 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-not-found" data-dx-version="1.2">
+      <div className="dx-not-found" data-dx-version="1.2.0">
         <span className="dx-not-found__badge">404</span>
         <div className="dx-not-found__title">Page not found</div>
         <div className="dx-not-found__message">No route matched this URL.</div>

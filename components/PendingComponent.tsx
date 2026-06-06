@@ -1,4 +1,4 @@
-// @source dx-components/PendingComponent v1.2
+// @source dx-components/PendingComponent v1.2.0
 import { useState, useEffect } from "react";
 
 const STYLES = `
@@ -54,7 +54,7 @@ export function PendingComponent() {
       <style>{STYLES}</style>
       <div
         className="dx-pending"
-        data-dx-version="1.2"
+        data-dx-version="1.2.0"
         role="status"
         aria-label="Loading"
       >
