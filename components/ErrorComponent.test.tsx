@@ -11,17 +11,24 @@ describe("ErrorComponent", () => {
 
   beforeEach(() => {
     resetFn.mockReset();
+    const mockWriteText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", {
+      value: {
+        writeText: mockWriteText,
+      },
+      configurable: true,
+    });
   });
 
   describe("dev mode", () => {
-    it("renders the full dev overlay with badg e and stack", () => {
+    it("renders the full dev overlay with badge and stack", () => {
       render(<ErrorComponent error={testError} reset={resetFn} />);
       expect(screen.getByText("Error")).toBeDefined();
       expect(screen.getByText("Test error message")).toBeDefined();
       expect(screen.getByText("myFunc")).toBeDefined();
       expect(screen.getByText("/src/App.tsx:10:5")).toBeDefined();
-      expect(screen.getByText("Copy error")).toBeDefined();
-      expect(screen.getByText("Try again")).toBeDefined();
+      expect(screen.getByText(/Copy error/)).toBeDefined();
+      expect(screen.getByText(/Try again/)).toBeDefined();
     });
 
     it("renders subtitle when provided", () => {
@@ -40,8 +47,29 @@ describe("ErrorComponent", () => {
     it("calls reset when Try again is clicked", async () => {
       const user = userEvent.setup();
       render(<ErrorComponent error={testError} reset={resetFn} />);
-      await user.click(screen.getByText("Try again"));
+      await user.click(screen.getByText(/Try again/));
       expect(resetFn).toHaveBeenCalledOnce();
+    });
+
+    it("triggers handleCopy when 'c' key is pressed", async () => {
+      const user = userEvent.setup();
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText");
+      await user.keyboard("c");
+      expect(writeTextSpy).toHaveBeenCalled();
+    });
+
+    it("triggers reset when 'r' key is pressed", async () => {
+      const user = userEvent.setup();
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      await user.keyboard("r");
+      expect(resetFn).toHaveBeenCalled();
+    });
+
+    it("shows keyboard shortcut hints", () => {
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      expect(screen.getByText("C")).toBeDefined();
+      expect(screen.getByText("R")).toBeDefined();
     });
   });
 
@@ -50,7 +78,7 @@ describe("ErrorComponent", () => {
       render(
         <ErrorComponent error={testError} reset={resetFn} mode="dev" />,
       );
-      expect(screen.getByText("Copy error")).toBeDefined();
+      expect(screen.getByText(/Copy error/)).toBeDefined();
     });
 
     it('mode="prod" renders ErrorPage instead of dev overlay', () => {
