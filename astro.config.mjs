@@ -1,9 +1,17 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
+import { unified } from "@astrojs/markdown-remark";
 
 export default defineConfig({
   site: "https://dx-components.pages.dev",
+  markdown: {
+    processor: unified({
+      remarkPlugins: [],
+      rehypePlugins: [],
+      remarkRehype: {},
+    }),
+  },
   integrations: [
     starlight({
       title: "dx-components",
@@ -37,6 +45,9 @@ export default defineConfig({
           ],
         },
       ],
+      components: {
+        Footer: "./src/components/FooterOverride.astro",
+      },
       customCss: ["./src/styles/custom.css"],
     }),
     react(),

@@ -1,0 +1,17 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro";
+import pkg from "../../package.json";
+---
+
+<Default />
+<p class="dx-footer-version">v{pkg.version}</p>
+
+<style>
+  .dx-footer-version {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--sl-color-gray-4);
+    margin: 0;
+    padding: 1rem 0;
+  }
+</style>
