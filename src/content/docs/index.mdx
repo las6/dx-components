@@ -2,7 +2,6 @@
 title: ErrorComponent
 ---
 
-import ThemePresets from "../../components/ThemePresets";
 import { Code } from "@astrojs/starlight/components";
 import DemoError from "../../components/DemoError";
 import ErrorSrc from "../../../components/ErrorComponent.tsx?raw";
@@ -12,12 +11,11 @@ Dev-friendly error overlay with parseable stack frames, chained `cause` display,
 - **`mode: "dev"`** (default) — full dark overlay with call stack and chained errors
 - **`mode: "prod"`** — auto-detects `import.meta.env.PROD` and delegates to ErrorPage
 
-<ThemePresets client:load>
-  <DemoError
-    message="Could not load user data — database connection refused"
-    subtitle="Loader or server function threw"
-  />
-</ThemePresets>
+<DemoError
+  client:load
+  message="Could not load user data — database connection refused"
+  subtitle="Loader or server function threw"
+/>
 
 ### Props
 

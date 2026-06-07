@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { ErrorComponent } from "../../components/ErrorComponent";
+import { useState, useEffect } from "react";
+import { ErrorPage } from "../../components/ErrorPage";
 
 type Preset = "dark" | "light" | "minimal" | "inherit";
 
@@ -61,60 +61,8 @@ const LABELS: Record<Preset, string> = {
 	inherit: "Inherit",
 };
 
-interface DemoErrorProps {
-	message: string;
-	stack?: string;
-	causeMessages?: string[];
-	causeStacks?: string[];
-	subtitle?: string;
-}
-
-function buildError(
-	message: string,
-	stack?: string,
-	causeMessages?: string[],
-	causeStacks?: string[],
-): Error {
-	const error = new Error(message);
-	if (stack) {
-		error.stack = stack;
-	}
-
-	const causes = causeMessages ?? [];
-	const causeStackArr = causeStacks ?? [];
-	let currentCause: Error | undefined;
-
-	for (let i = causes.length - 1; i >= 0; i--) {
-		const ce = new Error(causes[i]);
-		if (causeStackArr[i]) {
-			ce.stack = causeStackArr[i];
-		}
-		if (currentCause) {
-			ce.cause = currentCause;
-		}
-		currentCause = ce;
-	}
-
-	if (currentCause) {
-		error.cause = currentCause;
-	}
-
-	return error;
-}
-
-export default function DemoError({
-	message,
-	stack,
-	causeMessages,
-	causeStacks,
-	subtitle,
-}: DemoErrorProps) {
+export default function DemoErrorPage() {
 	const [preset, setPreset] = useState<Preset>("dark");
-
-	const error = useMemo(
-		() => buildError(message, stack, causeMessages, causeStacks),
-		[message, stack, causeMessages, causeStacks],
-	);
 
 	useEffect(() => {
 		const style = document.createElement("style");
@@ -166,12 +114,7 @@ export default function DemoError({
 				))}
 			</div>
 			<div data-dx-preset={preset}>
-				<ErrorComponent
-					error={error}
-					reset={() => {}}
-					subtitle={subtitle}
-					mode="dev"
-				/>
+				<ErrorPage />
 			</div>
 		</>
 	);

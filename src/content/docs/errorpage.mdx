@@ -2,16 +2,13 @@
 title: ErrorPage
 ---
 
-import ThemePresets from "../../components/ThemePresets";
 import { Code } from "@astrojs/starlight/components";
-import { ErrorPage } from "../../../components/ErrorPage";
+import DemoErrorPage from "../../components/DemoErrorPage";
 import ErrorPageSrc from "../../../components/ErrorPage.tsx?raw";
 
 Clean, production-facing error page. No stack traces — designed for end users. Shown automatically by ErrorComponent in prod mode, or used standalone.
 
-<ThemePresets client:load>
-  <ErrorPage />
-</ThemePresets>
+<DemoErrorPage client:load />
 
 ### Props
 
