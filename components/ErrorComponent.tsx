@@ -23,6 +23,11 @@ const STYLES = `
       --dx-border: #ddd;
       --dx-font: system-ui, -apple-system, sans-serif;
     }
+
+    .dx-error .dx-error__frame[data-own="false"] {
+      --_fg: #999;
+      --_loc: #bbb;
+    }
   }
 
   .dx-error {
@@ -130,10 +135,10 @@ const STYLES = `
       cursor: pointer;
       font-size: 0.75rem;
       font-family: inherit;
-      border: 1px solid #333;
+      border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
-      background: #1a1a1a;
-      color: #ccc;
+      background: var(--dx-surface);
+      color: var(--dx-muted);
       transition: all 0.2s ease;
     }
 
@@ -148,9 +153,9 @@ const STYLES = `
       padding: 0.125em 0.35em;
       font-size: 0.625rem;
       font-family: var(--dx-font);
-      background: #333;
-      color: #888;
-      border: 1px solid #444;
+      background: var(--dx-border);
+      color: var(--dx-muted);
+      border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
       margin-left: 0.5rem;
       opacity: 0;

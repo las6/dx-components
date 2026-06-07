@@ -87,9 +87,9 @@ const STYLES = `
     }
 
     & .dx-error-page__btn--secondary {
-      background: #1a1a1a;
-      color: #ccc;
-      border-color: #333;
+      background: var(--dx-surface);
+      color: var(--dx-muted);
+      border-color: var(--dx-border);
     }
   }
 `;

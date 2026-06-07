@@ -62,7 +62,7 @@ const STYLES = `
       font-size: 0.75rem;
       border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
-      background: #1a1a1a;
+      background: var(--dx-surface);
       color: var(--dx-muted);
       text-decoration: none;
       cursor: pointer;
