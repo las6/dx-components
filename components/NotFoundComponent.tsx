@@ -5,6 +5,8 @@ const STYLES = `
     --dx-bg: #0d0d0d;
     --dx-text: #e8e8e8;
     --dx-muted: #888;
+    --dx-accent: #c00;
+    --dx-surface: #161616;
     --dx-border: #2a2a2a;
     --dx-font: "Geist Mono", "Fira Code", monospace;
   }
@@ -14,6 +16,8 @@ const STYLES = `
       --dx-bg: #fff;
       --dx-text: #111;
       --dx-muted: #666;
+      --dx-accent: #d00;
+      --dx-surface: #f5f5f5;
       --dx-border: #ddd;
       --dx-font: system-ui, -apple-system, sans-serif;
     }
@@ -66,6 +70,11 @@ const STYLES = `
       color: var(--dx-muted);
       text-decoration: none;
       cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid var(--dx-accent);
+        outline-offset: 2px;
+      }
 
       &:hover {
         color: var(--dx-text);
