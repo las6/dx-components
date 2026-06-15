@@ -145,6 +145,11 @@ const STYLES = `
         outline: 2px solid var(--dx-accent);
         outline-offset: 2px;
       }
+
+      &:hover {
+        border-color: var(--dx-muted);
+        color: var(--dx-text);
+      }
     }
 
     & .dx-error__btn--copy[data-copied="true"] {
@@ -360,12 +365,25 @@ function DevErrorDisplay({
             className="dx-error__btn dx-error__btn--copy"
             data-copied={copied}
             aria-live="polite"
+            aria-label={
+              copied ? "Copied!" : "Copy error (Keyboard shortcut: C)"
+            }
           >
             {copied ? "Copied!" : "Copy error"}{" "}
-            <kbd className="dx-error__kbd">C</kbd>
+            <kbd className="dx-error__kbd" aria-hidden="true">
+              C
+            </kbd>
           </button>
-          <button type="button" onClick={reset} className="dx-error__btn">
-            Try again <kbd className="dx-error__kbd">R</kbd>
+          <button
+            type="button"
+            onClick={reset}
+            className="dx-error__btn"
+            aria-label="Try again (Keyboard shortcut: R)"
+          >
+            Try again{" "}
+            <kbd className="dx-error__kbd" aria-hidden="true">
+              R
+            </kbd>
           </button>
         </div>
       </div>
