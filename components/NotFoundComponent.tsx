@@ -78,6 +78,7 @@ const STYLES = `
 
       &:hover {
         color: var(--dx-text);
+        border-color: var(--dx-muted);
       }
     }
   }

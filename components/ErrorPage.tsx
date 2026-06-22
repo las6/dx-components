@@ -93,6 +93,10 @@ const STYLES = `
         outline: 2px solid var(--dx-accent);
         outline-offset: 2px;
       }
+
+      &:hover {
+        border-color: var(--dx-muted);
+      }
     }
 
     & .dx-error-page__btn--secondary {
@@ -120,7 +124,9 @@ export function ErrorPage({
       <div className="dx-error-page" data-dx-version="1.2.0">
         <div className="dx-error-page__card">
           <div className="dx-error-page__icon">
-            <span className="dx-error-page__icon-mark">!</span>
+            <span className="dx-error-page__icon-mark" aria-hidden="true">
+              !
+            </span>
           </div>
           <div className="dx-error-page__title">{title}</div>
           <div className="dx-error-page__message">{message}</div>
