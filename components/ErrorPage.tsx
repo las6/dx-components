@@ -95,7 +95,7 @@ const STYLES = `
       }
 
       &:hover {
-        border-color: var(--dx-muted);
+        background: var(--dx-border);
       }
     }
 

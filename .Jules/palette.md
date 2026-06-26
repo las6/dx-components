@@ -10,6 +10,6 @@
 **Learning:** Developers often use dim colors for non-essential stack trace frames to focus on "own code". However, these colors frequently fail WCAG AA contrast guidelines, making them unreadable for some users.
 **Action:** Ensure that even "muted" or "secondary" text in developer tools maintains a contrast ratio of at least 4.5:1 against its background.
 
-## 2025-05-15 - Improving component accessibility and interactivity
+## 2026-06-05 - Improving component accessibility and interactivity
 **Learning:** Micro-UX improvements like adding aria-labels with keyboard shortcut hints, hiding decorative icons with aria-hidden="true", and providing explicit hover states significantly enhance the usability and accessibility of developer tools without cluttering the interface.
-**Action:** Always include keyboard shortcut hints in aria-labels for buttons that support them, and ensure all interactive elements have a visible hover state (e.g., changing border-color).
+**Action:** Always include keyboard shortcut hints in aria-labels for buttons that support them, and ensure all interactive elements have a visible hover state (e.g., using a subtle background fill).
