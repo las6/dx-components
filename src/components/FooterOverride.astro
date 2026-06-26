@@ -6,6 +6,16 @@ import pkg from "../../package.json";
 <Default />
 <p class="dx-footer-version">v{pkg.version}</p>
 
+<script>
+  import { init } from "centry-client";
+
+  init({
+    project: "dx-components",
+    environment: import.meta.env.PROD ? "production" : "development",
+    enabled: import.meta.env.PROD,
+  });
+</script>
+
 <style>
   .dx-footer-version {
     text-align: center;

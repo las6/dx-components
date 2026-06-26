@@ -24,16 +24,17 @@ export const Route = createRootRoute({
 
 ## Centry setup
 
-Initialize centry once at app startup, before hydration:
+Initialize centry once at app startup, before hydration. `init()` automatically installs global error handlers — no need for a separate call:
 
 ```ts
-import { init, installGlobalHandlers } from "centry-client";
+import { init } from "centry-client";
 
-const centryClient = init({
+init({
   project: "my-project",
   enabled: import.meta.env.PROD,
 });
-installGlobalHandlers(centryClient);
 ```
+
+To opt out of automatic global handlers, pass `globalHandlers: false`:
 
 This pattern works with any error reporting SDK — just call the report function inside `useEffect` on the error prop.
