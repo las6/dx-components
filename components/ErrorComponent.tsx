@@ -25,8 +25,8 @@ const STYLES = `
     }
 
     .dx-error .dx-error__frame[data-own="false"] {
-      --_fg: #999;
-      --_loc: #bbb;
+      --_fg: #707070;
+      --_loc: #707070;
     }
   }
 
@@ -98,8 +98,8 @@ const STYLES = `
     }
 
     & .dx-error__frame[data-own="false"] {
-      --_fg: #555;
-      --_loc: #444;
+      --_fg: #888;
+      --_loc: #808080;
     }
 
     & .dx-error__frame-fn {
@@ -140,6 +140,11 @@ const STYLES = `
       background: var(--dx-surface);
       color: var(--dx-muted);
       transition: all 0.2s ease;
+
+      &:focus-visible {
+        outline: 2px solid var(--dx-accent);
+        outline-offset: 2px;
+      }
     }
 
     & .dx-error__btn--copy[data-copied="true"] {
@@ -354,6 +359,7 @@ function DevErrorDisplay({
             onClick={handleCopy}
             className="dx-error__btn dx-error__btn--copy"
             data-copied={copied}
+            aria-live="polite"
           >
             {copied ? "Copied!" : "Copy error"}{" "}
             <kbd className="dx-error__kbd">C</kbd>
