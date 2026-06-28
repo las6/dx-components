@@ -61,6 +61,10 @@ const LABELS: Record<Preset, string> = {
 	inherit: "Inherit",
 };
 
+const MOCK_STACK = `at fetchUser (/src/api/user.ts:12:24)
+at loadData (/src/routes/profile.tsx:45:10)
+at Route.loader (/src/routes/profile.tsx:20:5)`;
+
 interface DemoErrorProps {
 	message: string;
 	stack?: string;
@@ -78,6 +82,9 @@ function buildError(
 	const error = new Error(message);
 	if (stack) {
 		error.stack = stack;
+	} else {
+		// Ensure stable stack for SSR/Hydration if none provided
+		error.stack = `Error: ${message}\n${MOCK_STACK}`;
 	}
 
 	const causes = causeMessages ?? [];
@@ -88,6 +95,8 @@ function buildError(
 		const ce = new Error(causes[i]);
 		if (causeStackArr[i]) {
 			ce.stack = causeStackArr[i];
+		} else {
+			ce.stack = `Error: ${causes[i]}\n${MOCK_STACK}`;
 		}
 		if (currentCause) {
 			ce.cause = currentCause;

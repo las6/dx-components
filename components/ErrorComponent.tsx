@@ -285,7 +285,13 @@ function DevErrorDisplay({
   reset: () => void;
   subtitle?: string;
 }) {
+  const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   const message = error instanceof Error ? error.message : String(error);
   const stack = error instanceof Error ? (error.stack ?? "") : "";
@@ -330,6 +336,16 @@ function DevErrorDisplay({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleCopy, reset]);
+
+  if (!mounted) {
+    return (
+      <div
+        className="dx-error"
+        data-dx-version="1.2.0"
+        style={{ background: "#0d0d0d", minHeight: "100dvh" }}
+      />
+    );
+  }
 
   return (
     <>

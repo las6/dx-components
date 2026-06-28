@@ -1,4 +1,5 @@
 // @source dx-components/ErrorPage v1.2.0
+import { useState, useEffect } from "react";
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -114,6 +115,23 @@ export function ErrorPage({
   title = "This page couldn't load",
   message = "Something went wrong. Please try again.",
 }: ErrorPageProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div
+        className="dx-error-page"
+        data-dx-version="1.2.0"
+        style={{ background: "#0d0d0d", minHeight: "100dvh" }}
+      />
+    );
+  }
+
   return (
     <>
       <style>{STYLES}</style>
