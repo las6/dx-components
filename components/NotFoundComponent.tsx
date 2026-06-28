@@ -77,6 +77,7 @@ const STYLES = `
       }
 
       &:hover {
+        background: var(--dx-border);
         color: var(--dx-text);
       }
     }
