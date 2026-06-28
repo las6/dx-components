@@ -3,3 +3,5 @@ allowBuilds:
   esbuild: true
   msw: false
   sharp: true
+minimumReleaseAgeExclude:
+  - centry-client@1.2.1
