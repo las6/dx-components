@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ErrorComponent } from "./ErrorComponent";
 import { ErrorPage } from "./ErrorPage";
+import { NotFoundComponent } from "./NotFoundComponent";
 
 describe("ErrorComponent", () => {
   const testError = new Error("Test error message");
@@ -144,6 +145,25 @@ describe("ErrorComponent", () => {
       render(<ErrorPage title="Custom title" message="Custom message" />);
       expect(screen.getByText("Custom title")).toBeDefined();
       expect(screen.getByText("Custom message")).toBeDefined();
+    });
+  });
+
+  describe("NotFoundComponent", () => {
+    it("renders the 404 page with badge and actions", () => {
+      render(<NotFoundComponent />);
+      expect(screen.getByText("404")).toBeDefined();
+      expect(screen.getByText("Page not found")).toBeDefined();
+      expect(screen.getByText("No route matched this URL.")).toBeDefined();
+      expect(screen.getByText("Go back")).toBeDefined();
+      expect(screen.getByText("Go home")).toBeDefined();
+    });
+
+    it("triggers window.history.back when 'Go back' is clicked", async () => {
+      const user = userEvent.setup();
+      const backSpy = vi.spyOn(window.history, "back");
+      render(<NotFoundComponent />);
+      await user.click(screen.getByText("Go back"));
+      expect(backSpy).toHaveBeenCalledOnce();
     });
   });
 });

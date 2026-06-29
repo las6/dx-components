@@ -61,15 +61,22 @@ const STYLES = `
       margin-bottom: 1.5rem;
     }
 
-    & .dx-not-found__link {
+    & .dx-not-found__actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    & .dx-not-found__btn {
       padding: 0.35em 0.75em;
       font-size: 0.75rem;
+      font-family: inherit;
       border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
       background: var(--dx-surface);
       color: var(--dx-muted);
       text-decoration: none;
       cursor: pointer;
+      transition: all 0.2s ease;
 
       &:focus-visible {
         outline: 2px solid var(--dx-accent);
@@ -98,9 +105,18 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
         <span className="dx-not-found__badge">404</span>
         <div className="dx-not-found__title">Page not found</div>
         <div className="dx-not-found__message">No route matched this URL.</div>
-        <a className="dx-not-found__link" href="/">
-          Go home
-        </a>
+        <div className="dx-not-found__actions">
+          <button
+            type="button"
+            className="dx-not-found__btn"
+            onClick={() => window.history.back()}
+          >
+            Go back
+          </button>
+          <a className="dx-not-found__btn" href="/">
+            Go home
+          </a>
+        </div>
       </div>
     </>
   );
