@@ -88,6 +88,7 @@ const STYLES = `
       border-radius: 0.25rem;
       background: var(--dx-bg);
       color: var(--dx-text);
+      transition: all 0.2s ease;
 
       &:focus-visible {
         outline: 2px solid var(--dx-accent);
