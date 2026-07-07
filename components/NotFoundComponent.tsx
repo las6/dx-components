@@ -66,8 +66,10 @@ const STYLES = `
       gap: 0.5rem;
     }
 
-    & .dx-not-found__btn {
+    & .dx-not-found__btn,
+    & .dx-not-found__link {
       padding: 0.35em 0.75em;
+      font-family: inherit;
       font-size: 0.75rem;
       font-family: inherit;
       border: 1px solid var(--dx-border);
@@ -113,7 +115,7 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
           >
             Go back
           </button>
-          <a className="dx-not-found__btn" href="/">
+          <a className="dx-not-found__link" href="/">
             Go home
           </a>
         </div>
