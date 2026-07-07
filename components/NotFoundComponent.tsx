@@ -71,6 +71,7 @@ const STYLES = `
       padding: 0.35em 0.75em;
       font-family: inherit;
       font-size: 0.75rem;
+      font-family: inherit;
       border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
       background: var(--dx-surface);

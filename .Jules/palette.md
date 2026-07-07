@@ -13,3 +13,7 @@
 ## 2026-06-05 - Improving component accessibility and interactivity
 **Learning:** Micro-UX improvements like adding aria-labels with keyboard shortcut hints, hiding decorative icons with aria-hidden="true", and providing explicit hover states significantly enhance the usability and accessibility of developer tools without cluttering the interface.
 **Action:** Always include keyboard shortcut hints in aria-labels for buttons that support them, and ensure all interactive elements have a visible hover state (e.g., using a subtle background fill).
+
+## 2026-06-10 - Contextual navigation on error pages
+**Learning:** Providing a "Go back" option on 404 and error pages reduces user friction by allowing them to return to their previous context directly, rather than forcing them to start over from the home page.
+**Action:** Always provide a "Go back" action alongside the primary navigation target on error or not-found pages to preserve user context.
