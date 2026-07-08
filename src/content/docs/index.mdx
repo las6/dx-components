@@ -1,63 +1,60 @@
 ---
-title: ErrorComponent
+title: dx-components
+description: Copy-paste-ready DX components for Vite + TanStack
+template: splash
+hero:
+  title: dx-components
+  tagline: Production-ready UI primitives for the dev experience — error overlays, 404 pages, and loading skeletons. Built for Vite + TanStack.
+  image:
+    file: ../../../public/favicon.svg
+  actions:
+    - text: Get started
+      link: /installation
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/las6/dx-components
+      icon: external
+      variant: minimal
 ---
 
-import { Code } from "@astrojs/starlight/components";
-import DemoError from "../../components/DemoError";
-import ErrorSrc from "../../../components/ErrorComponent.tsx?raw";
+## What
 
-Dev-friendly error overlay with parseable stack frames, chained `cause` display, copy-to-clipboard, and own-code line highlighting.
+Four self-contained React components that fill gaps every Vite + TanStack app hits:
 
-- **`mode: "dev"`** (default) — full dark overlay with call stack and chained errors
-- **`mode: "prod"`** — auto-detects `import.meta.env.PROD` and delegates to ErrorPage
+| Component | Purpose |
+|---|---|
+| [ErrorComponent](/errorcomponent) | Dev-friendly error overlay with parsed stack traces, chained `cause` display, and copy-to-clipboard |
+| [ErrorPage](/errorpage) | Clean, production-facing error page — shown automatically by ErrorComponent in prod |
+| [NotFoundComponent](/notfoundcomponent) | 404 page template with a "Go home" link |
+| [PendingComponent](/pendingcomponent) | Animated "Loading..." skeleton for route transitions |
 
-<DemoError
-  client:only="react"
-  message="Could not load user data — database connection refused"
-  subtitle="Loader or server function threw"
-/>
+Each is a **single `.tsx` file** with its own `<style>` block. No CSS imports, no build plugins, no runtime dependency beyond React.
 
-### Props
+## Why
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `error` | `unknown` | The thrown error |
-| `reset` | `() => void` | Retry callback |
-| `subtitle?` | `string` | Optional subtitle shown next to the error badge |
-| `mode?` | `"dev" \| "prod"` | Display mode. Defaults to auto-detect |
+Next.js ships with decent error boundaries, custom 404 pages, and built-in `<Suspense>` boundaries — and has dedicated documentation, examples, and convention for each.
 
-### Source
+**With Vite + TanStack Start, you're wiring all of this up from scratch.** These components fill that gap.
 
-<Code code={ErrorSrc} lang="tsx" />
+They're delivered the same way shadcn ships UI components: the source code _is_ the package. Copy the files from GitHub, or `npm install` and import them directly. You own the code, you edit the code — nothing is hidden behind a bundler or abstraction layer.
 
-### Usage
+## How
 
-**TanStack Router (SPA):** use directly as `errorComponent`.
+```bash
+# Copy-paste from the GitHub repo
+# Or install as a package:
+npm install github:las6/dx-components
+```
 
 ```tsx
-import { createRootRoute } from "@tanstack/react-router";
-import { ErrorComponent } from "./components/ErrorComponent";
+import { ErrorComponent } from "dx-components/components/ErrorComponent";
 
 export const Route = createRootRoute({
   errorComponent: ErrorComponent,
 });
 ```
 
-**TanStack Start (root route):** wrap in HTML shell.
+Each component works within TanStack Router, TanStack Start, or any React app using Vite.
 
-```tsx
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { ErrorComponent } from "./components/ErrorComponent";
-
-function RootErrorShell(props: ErrorComponentProps) {
-  return (
-    <html lang="en">
-      <head><HeadContent /></head>
-      <body style={{ margin: 0, background: "#0d0d0d" }}>
-        <ErrorComponent {...props} />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-```
+[Browse the components](/errorcomponent) or head to the [installation guide](/installation) for setup.

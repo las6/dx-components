@@ -30,7 +30,7 @@ export default defineConfig({
         {
           label: "Components",
           items: [
-            { label: "ErrorComponent", link: "/" },
+            { label: "ErrorComponent", link: "/errorcomponent" },
             { label: "ErrorPage", link: "/errorpage" },
             { label: "NotFoundComponent", link: "/notfoundcomponent" },
             { label: "PendingComponent", link: "/pendingcomponent" },
