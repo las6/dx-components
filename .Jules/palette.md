@@ -17,3 +17,7 @@
 ## 2026-06-10 - Contextual navigation on error pages
 **Learning:** Providing a "Go back" option on 404 and error pages reduces user friction by allowing them to return to their previous context directly, rather than forcing them to start over from the home page.
 **Action:** Always provide a "Go back" action alongside the primary navigation target on error or not-found pages to preserve user context.
+
+## 2026-07-13 - Consistent keyboard shortcuts across DX components
+**Learning:** Providing consistent keyboard shortcuts (like 'B' for Back, 'H' for Home, 'R' for Retry) across all developer-facing components significantly improves productivity for power users. Pairing these with subtle visual hints (`<kbd>`) that appear on hover or focus makes the feature discoverable without cluttering the UI.
+**Action:** Implement a standard set of keyboard shortcuts across related components and ensure discoverability through visual hints and ARIA labels.

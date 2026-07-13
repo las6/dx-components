@@ -162,8 +162,35 @@ describe("ErrorComponent", () => {
       const user = userEvent.setup();
       const backSpy = vi.spyOn(window.history, "back");
       render(<NotFoundComponent />);
-      await user.click(screen.getByText("Go back"));
+      await user.click(screen.getByText(/Go back/));
       expect(backSpy).toHaveBeenCalledOnce();
+    });
+
+    it("triggers window.history.back when 'b' key is pressed", async () => {
+      const user = userEvent.setup();
+      const backSpy = vi.spyOn(window.history, "back");
+      render(<NotFoundComponent />);
+      await user.keyboard("b");
+      expect(backSpy).toHaveBeenCalled();
+    });
+
+    it("triggers window.location.href change when 'h' key is pressed", async () => {
+      const user = userEvent.setup();
+      // JSDOM doesn't allow direct assignment to window.location.href, so we just check it doesn't throw
+      // or we can mock window.location
+      const locationSpy = vi.spyOn(window, "location", "get");
+      const mockLocation = { href: "" } as Location;
+      locationSpy.mockReturnValue(mockLocation);
+
+      render(<NotFoundComponent />);
+      await user.keyboard("h");
+      expect(mockLocation.href).toBe("/");
+    });
+
+    it("shows keyboard shortcut hints", () => {
+      render(<NotFoundComponent />);
+      expect(screen.getByText("B")).toBeDefined();
+      expect(screen.getByText("H")).toBeDefined();
     });
   });
 });

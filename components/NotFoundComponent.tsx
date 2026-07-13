@@ -1,4 +1,5 @@
 // @source dx-components/NotFoundComponent v1.2.1
+import { useEffect } from "react";
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -71,7 +72,6 @@ const STYLES = `
       padding: 0.35em 0.75em;
       font-family: inherit;
       font-size: 0.75rem;
-      font-family: inherit;
       border: 1px solid var(--dx-border);
       border-radius: 0.25rem;
       background: var(--dx-surface);
@@ -90,6 +90,27 @@ const STYLES = `
         color: var(--dx-text);
       }
     }
+
+    & .dx-not-found__kbd {
+      display: inline-block;
+      padding: 0.125em 0.35em;
+      font-size: 0.625rem;
+      font-family: var(--dx-font);
+      background: var(--dx-border);
+      color: var(--dx-muted);
+      border: 1px solid var(--dx-border);
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+
+    & .dx-not-found__btn:hover .dx-not-found__kbd,
+    & .dx-not-found__btn:focus-within .dx-not-found__kbd,
+    & .dx-not-found__link:hover .dx-not-found__kbd,
+    & .dx-not-found__link:focus-within .dx-not-found__kbd {
+      opacity: 1;
+    }
   }
 `;
 
@@ -100,6 +121,29 @@ export interface NotFoundComponentProps {
 }
 
 export function NotFoundComponent(_props: NotFoundComponentProps) {
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      ) {
+        return;
+      }
+
+      if (e.key.toLowerCase() === "b") {
+        window.history.back();
+      } else if (e.key.toLowerCase() === "h") {
+        window.location.href = "/";
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
       <style>{STYLES}</style>
@@ -112,11 +156,22 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
             type="button"
             className="dx-not-found__btn"
             onClick={() => window.history.back()}
+            aria-label="Go back (Keyboard shortcut: B)"
           >
-            Go back
+            Go back{" "}
+            <kbd className="dx-not-found__kbd" aria-hidden="true">
+              B
+            </kbd>
           </button>
-          <a className="dx-not-found__link" href="/">
-            Go home
+          <a
+            className="dx-not-found__link"
+            href="/"
+            aria-label="Go home (Keyboard shortcut: H)"
+          >
+            Go home{" "}
+            <kbd className="dx-not-found__kbd" aria-hidden="true">
+              H
+            </kbd>
           </a>
         </div>
       </div>
