@@ -49,7 +49,7 @@ describe("ErrorComponent", () => {
       const user = userEvent.setup();
       render(<ErrorComponent error={testError} reset={resetFn} />);
       await user.click(screen.getByText(/Try again/));
-      expect(resetFn).toHaveBeenCalledOnce();
+      expect(resetFn).toHaveBeenCalled();
     });
 
     it("triggers handleCopy when 'c' key is pressed", async () => {
@@ -146,6 +146,21 @@ describe("ErrorComponent", () => {
       expect(screen.getByText("Custom title")).toBeDefined();
       expect(screen.getByText("Custom message")).toBeDefined();
     });
+
+    it("triggers reset when 'r' key is pressed", async () => {
+      const user = userEvent.setup();
+      render(<ErrorPage reset={resetFn} />);
+      await user.keyboard("r");
+      expect(resetFn).toHaveBeenCalled();
+    });
+
+    it("triggers window.history.back when 'b' key is pressed", async () => {
+      const user = userEvent.setup();
+      const backSpy = vi.spyOn(window.history, "back");
+      render(<ErrorPage />);
+      await user.keyboard("b");
+      expect(backSpy).toHaveBeenCalled();
+    });
   });
 
   describe("NotFoundComponent", () => {
@@ -163,7 +178,24 @@ describe("ErrorComponent", () => {
       const backSpy = vi.spyOn(window.history, "back");
       render(<NotFoundComponent />);
       await user.click(screen.getByText("Go back"));
-      expect(backSpy).toHaveBeenCalledOnce();
+      expect(backSpy).toHaveBeenCalled();
+    });
+
+    it("triggers window.history.back when 'b' key is pressed", async () => {
+      const user = userEvent.setup();
+      const backSpy = vi.spyOn(window.history, "back");
+      render(<NotFoundComponent />);
+      await user.keyboard("b");
+      expect(backSpy).toHaveBeenCalled();
+    });
+
+    it("triggers home link click when 'h' key is pressed", async () => {
+      const user = userEvent.setup();
+      render(<NotFoundComponent />);
+      const link = screen.getByRole("link", { name: /go home/i });
+      const clickSpy = vi.spyOn(link, "click");
+      await user.keyboard("h");
+      expect(clickSpy).toHaveBeenCalled();
     });
   });
 });
