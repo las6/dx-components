@@ -1,4 +1,5 @@
 // @source dx-components/ErrorPage v1.2.1
+import { useEffect } from "react";
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -105,6 +106,25 @@ const STYLES = `
       color: var(--dx-muted);
       border-color: var(--dx-border);
     }
+
+    & .dx-error-page__kbd {
+      display: inline-block;
+      padding: 0.125em 0.35em;
+      font-size: 0.625rem;
+      font-family: var(--dx-font);
+      background: var(--dx-border);
+      color: var(--dx-muted);
+      border: 1px solid var(--dx-border);
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+
+    & .dx-error-page__btn:hover .dx-error-page__kbd,
+    & .dx-error-page__btn:focus-within .dx-error-page__kbd {
+      opacity: 1;
+    }
   }
 `;
 
@@ -119,6 +139,42 @@ export function ErrorPage({
   title = "This page couldn't load",
   message = "Something went wrong. Please try again.",
 }: ErrorPageProps) {
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      ) {
+        return;
+      }
+
+      const key = e.key.toLowerCase();
+      if (key === "r") {
+        if (reset) {
+          reset();
+        } else {
+          window.location.reload();
+        }
+      } else if (key === "b") {
+        window.history.back();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [reset]);
+
+  const handleReload = () => {
+    if (reset) {
+      reset();
+    } else {
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <style>{STYLES}</style>
@@ -134,17 +190,25 @@ export function ErrorPage({
           <div className="dx-error-page__actions">
             <button
               type="button"
-              onClick={() => (reset ? reset() : window.location.reload())}
+              onClick={handleReload}
               className="dx-error-page__btn"
+              aria-label="Reload (Keyboard shortcut: R)"
             >
               Reload
+              <kbd className="dx-error-page__kbd" aria-hidden="true">
+                R
+              </kbd>
             </button>
             <button
               type="button"
               onClick={() => window.history.back()}
               className="dx-error-page__btn dx-error-page__btn--secondary"
+              aria-label="Back (Keyboard shortcut: B)"
             >
               Back
+              <kbd className="dx-error-page__kbd" aria-hidden="true">
+                B
+              </kbd>
             </button>
           </div>
         </div>
