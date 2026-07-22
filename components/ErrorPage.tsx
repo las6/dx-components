@@ -1,4 +1,4 @@
-// @source dx-components/ErrorPage v1.2.1
+// @source dx-components/ErrorPage v1.2.2
 import { useEffect } from "react";
 
 const STYLES = `
@@ -178,7 +178,7 @@ export function ErrorPage({
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error-page" data-dx-version="1.2.1" suppressHydrationWarning>
+      <div className="dx-error-page" data-dx-version="1.2.2" suppressHydrationWarning>
         <div className="dx-error-page__card">
           <div className="dx-error-page__icon">
             <span className="dx-error-page__icon-mark" aria-hidden="true">

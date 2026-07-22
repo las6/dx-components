@@ -1,4 +1,4 @@
-// @source dx-components/NotFoundComponent v1.2.1
+// @source dx-components/NotFoundComponent v1.2.2
 import { useEffect, useRef } from "react";
 
 const STYLES = `
@@ -152,7 +152,7 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-not-found" data-dx-version="1.2.1" suppressHydrationWarning>
+      <div className="dx-not-found" data-dx-version="1.2.2" suppressHydrationWarning>
         <span className="dx-not-found__badge">404</span>
         <div className="dx-not-found__title">Page not found</div>
         <div className="dx-not-found__message">No route matched this URL.</div>
