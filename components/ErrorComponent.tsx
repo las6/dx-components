@@ -236,11 +236,19 @@ function ErrorBlock({
   message: string;
   stack: string;
 }) {
+  const [showAll, setShowAll] = useState(false);
   const stackLines = stack
     .split("\n")
     .filter((line) => !line.startsWith(message) && line.trim() !== "");
 
   const frames = parseStackFrames(stackLines);
+  const hasOwn = frames.some((f) => ownFileMatcher(f.location));
+  const hasExternal = frames.some((f, i) => !ownFileMatcher(f.location) && stackLines[i].trim().startsWith("at"));
+  const canToggle = hasOwn && hasExternal;
+
+  const displayedFrames = canToggle && !showAll
+    ? frames.filter((f, i) => ownFileMatcher(f.location) || !stackLines[i].trim().startsWith("at"))
+    : frames;
 
   return (
     <div>
@@ -252,10 +260,42 @@ function ErrorBlock({
 
       {frames.length > 0 && (
         <div className="dx-error__stack">
-          <div className="dx-error__stack-title">
-            Call Stack ({frames.length})
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "0.5rem",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+            }}
+          >
+            <div className="dx-error__stack-title" style={{ margin: 0 }}>
+              Call Stack ({frames.length})
+            </div>
+            {canToggle && (
+              <button
+                type="button"
+                className="dx-error__btn"
+                style={{
+                  padding: "0.15em 0.5em",
+                  fontSize: "0.6875rem",
+                  margin: 0,
+                }}
+                onClick={() => setShowAll((prev) => !prev)}
+                aria-label={
+                  showAll
+                    ? "Collapse library frames"
+                    : `Expand ${frames.length - displayedFrames.length} library frames`
+                }
+              >
+                {showAll
+                  ? "Hide library frames"
+                  : `Show ${frames.length - displayedFrames.length} library frames`}
+              </button>
+            )}
           </div>
-          {frames.map((frame, i) => {
+          {displayedFrames.map((frame, i) => {
             const isOwn = ownFileMatcher(frame.location);
             return (
               <div
