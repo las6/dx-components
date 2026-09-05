@@ -17,3 +17,7 @@
 ## 2026-06-10 - Contextual navigation on error pages
 **Learning:** Providing a "Go back" option on 404 and error pages reduces user friction by allowing them to return to their previous context directly, rather than forcing them to start over from the home page.
 **Action:** Always provide a "Go back" action alongside the primary navigation target on error or not-found pages to preserve user context.
+
+## 2026-06-15 - Collapsible Stack Traces for DX Components
+**Learning:** Collapsing third-party library frames (like those starting with `at` and from `/node_modules/` or internal Vite/React scripts) by default keeps dev error overlays incredibly clean, focusing the developer's attention on their own code, while maintaining full accessibility with a clearly labeled, dynamic ARIA toggle.
+**Action:** When designing developer tools with long text outputs or stack traces, filter and collapse non-essential or third-party frames by default, providing clear toggle controls with live count updates.

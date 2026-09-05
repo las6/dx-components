@@ -72,6 +72,51 @@ describe("ErrorComponent", () => {
       expect(screen.getByText("C")).toBeDefined();
       expect(screen.getByText("R")).toBeDefined();
     });
+
+    describe("collapsible stack trace", () => {
+      it("collapses library/external frames by default and shows toggle", async () => {
+        const user = userEvent.setup();
+        render(<ErrorComponent error={testError} reset={resetFn} />);
+
+        // Own frame is visible
+        expect(screen.getByText("myFunc")).toBeDefined();
+        // External frame is collapsed
+        expect(screen.queryByText("render")).toBeNull();
+
+        // Toggle button is visible
+        const toggleBtn = screen.getByRole("button", { name: /expand 1 library frames/i });
+        expect(toggleBtn).toBeDefined();
+
+        // Click to expand
+        await user.click(toggleBtn);
+        expect(screen.getByText("render")).toBeDefined();
+        expect(screen.getByRole("button", { name: /collapse library frames/i })).toBeDefined();
+
+        // Click to collapse
+        await user.click(screen.getByRole("button", { name: /collapse library frames/i }));
+        expect(screen.queryByText("render")).toBeNull();
+      });
+
+      it("does not show toggle if there are only own frames", () => {
+        const ownError = new Error("Own error");
+        ownError.stack = "Error: Own error\n    at myFunc (/src/App.tsx:10:5)\n    at otherFunc (/routes/index.tsx:5:1)";
+        render(<ErrorComponent error={ownError} reset={resetFn} />);
+
+        expect(screen.getByText("myFunc")).toBeDefined();
+        expect(screen.getByText("otherFunc")).toBeDefined();
+        expect(screen.queryByRole("button", { name: /library frames/i })).toBeNull();
+      });
+
+      it("does not show toggle if there are only external frames", () => {
+        const extError = new Error("External error");
+        extError.stack = "Error: External error\n    at render (/node_modules/react/index.js:100:1)\n    at run (/node_modules/vite/index.js:50:2)";
+        render(<ErrorComponent error={extError} reset={resetFn} />);
+
+        expect(screen.getByText("render")).toBeDefined();
+        expect(screen.getByText("run")).toBeDefined();
+        expect(screen.queryByRole("button", { name: /library frames/i })).toBeNull();
+      });
+    });
   });
 
   describe("mode prop", () => {
