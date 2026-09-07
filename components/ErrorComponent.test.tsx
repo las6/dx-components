@@ -83,18 +83,22 @@ describe("ErrorComponent", () => {
         // External frame is collapsed
         expect(screen.queryByText("render")).toBeNull();
 
-        // Toggle button is visible
-        const toggleBtn = screen.getByRole("button", { name: /expand 1 library frames/i });
+        // Toggle button is visible and initially aria-expanded="false"
+        const toggleBtn = screen.getByRole("button", { name: /show 1 library frames/i });
         expect(toggleBtn).toBeDefined();
+        expect(toggleBtn.getAttribute("aria-expanded")).toBe("false");
 
         // Click to expand
         await user.click(toggleBtn);
         expect(screen.getByText("render")).toBeDefined();
-        expect(screen.getByRole("button", { name: /collapse library frames/i })).toBeDefined();
+        const expandedBtn = screen.getByRole("button", { name: /hide library frames/i });
+        expect(expandedBtn).toBeDefined();
+        expect(expandedBtn.getAttribute("aria-expanded")).toBe("true");
 
         // Click to collapse
-        await user.click(screen.getByRole("button", { name: /collapse library frames/i }));
+        await user.click(expandedBtn);
         expect(screen.queryByText("render")).toBeNull();
+        expect(screen.getByRole("button", { name: /show 1 library frames/i }).getAttribute("aria-expanded")).toBe("false");
       });
 
       it("does not show toggle if there are only own frames", () => {

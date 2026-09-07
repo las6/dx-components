@@ -21,3 +21,7 @@
 ## 2026-06-15 - Collapsible Stack Traces for DX Components
 **Learning:** Collapsing third-party library frames (like those starting with `at` and from `/node_modules/` or internal Vite/React scripts) by default keeps dev error overlays incredibly clean, focusing the developer's attention on their own code, while maintaining full accessibility with a clearly labeled, dynamic ARIA toggle.
 **Action:** When designing developer tools with long text outputs or stack traces, filter and collapse non-essential or third-party frames by default, providing clear toggle controls with live count updates.
+
+## 2026-06-20 - ARIA disclosure state for collapsible controls
+**Learning:** Expandable disclosure buttons (such as stack trace toggles) require `aria-expanded` attributes (`true`/`false`) so screen readers properly announce whether content is expanded or collapsed.
+**Action:** Always include `aria-expanded={boolean}` on interactive buttons that control the visibility of associated content.
