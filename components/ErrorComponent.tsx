@@ -283,10 +283,11 @@ function ErrorBlock({
                   margin: 0,
                 }}
                 onClick={() => setShowAll((prev) => !prev)}
+                aria-expanded={showAll}
                 aria-label={
                   showAll
-                    ? "Collapse library frames"
-                    : `Expand ${frames.length - displayedFrames.length} library frames`
+                    ? "Hide library frames"
+                    : `Show ${frames.length - displayedFrames.length} library frames`
                 }
               >
                 {showAll
