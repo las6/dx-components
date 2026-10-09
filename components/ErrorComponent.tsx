@@ -1,5 +1,5 @@
 // @source dx-components/ErrorComponent v1.2.2
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useId } from "react";
 import { ErrorPage } from "./ErrorPage";
 
 const STYLES = `
@@ -237,6 +237,7 @@ function ErrorBlock({
   stack: string;
 }) {
   const [showAll, setShowAll] = useState(false);
+  const stackFramesId = useId();
   const stackLines = stack
     .split("\n")
     .filter((line) => !line.startsWith(message) && line.trim() !== "");
@@ -259,7 +260,7 @@ function ErrorBlock({
       <div className="dx-error__message">{message}</div>
 
       {frames.length > 0 && (
-        <div className="dx-error__stack">
+        <div className="dx-error__stack" id={stackFramesId}>
           <div
             style={{
               display: "flex",
@@ -284,6 +285,7 @@ function ErrorBlock({
                 }}
                 onClick={() => setShowAll((prev) => !prev)}
                 aria-expanded={showAll}
+                aria-controls={stackFramesId}
                 aria-label={
                   showAll
                     ? "Hide library frames"

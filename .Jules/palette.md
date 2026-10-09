@@ -25,3 +25,7 @@
 ## 2026-06-20 - ARIA disclosure state for collapsible controls
 **Learning:** Expandable disclosure buttons (such as stack trace toggles) require `aria-expanded` attributes (`true`/`false`) so screen readers properly announce whether content is expanded or collapsed.
 **Action:** Always include `aria-expanded={boolean}` on interactive buttons that control the visibility of associated content.
+
+## 2026-06-25 - ARIA controls relationship for collapsible stack traces
+**Learning:** Expandable disclosure buttons controlling the visibility of stack trace frames require an `aria-controls` attribute referencing the unique container ID (generated via `useId()`) so assistive technology users can directly associate and navigate between the toggle button and the target frame element.
+**Action:** Always pair `aria-expanded` on toggle buttons with `aria-controls={containerId}` referencing the controlled container's `id`.

@@ -87,6 +87,9 @@ describe("ErrorComponent", () => {
         const toggleBtn = screen.getByRole("button", { name: /show 1 library frames/i });
         expect(toggleBtn).toBeDefined();
         expect(toggleBtn.getAttribute("aria-expanded")).toBe("false");
+        const controlsId = toggleBtn.getAttribute("aria-controls");
+        expect(controlsId).toBeTruthy();
+        expect(document.getElementById(controlsId!)).not.toBeNull();
 
         // Click to expand
         await user.click(toggleBtn);
