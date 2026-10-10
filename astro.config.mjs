@@ -40,6 +40,7 @@ export default defineConfig({
           label: "Guides",
           items: [
             { label: "Error Reporting", link: "/error-reporting" },
+            { label: "Vite Preload Recovery", link: "/vite-preload-recovery" },
             { label: "Installation", link: "/installation" },
             { label: "Theming", link: "/theming" },
           ],

@@ -106,6 +106,10 @@ export const Route = createFileRoute("/slow")({
 });
 ```
 
+## Guides
+
+- [Vite preload recovery](./src/content/docs/vite-preload-recovery.mdx) — a copyable browser helper for guarded reloads, persistent-error reporting, and apps with unsaved edits.
+
 ## Design
 
 - **Inline styles** — zero dependencies, no Tailwind or CSS imports needed

@@ -1,0 +1,101 @@
+---
+title: Vite Preload Recovery
+---
+
+A tab opened before a deployment can reference JavaScript or CSS chunks that no longer exist. Vite emits `vite:preloadError` when a dynamic import or its preload fails. A failed download can produce the same event, so it does not prove that a deployment caused the failure.
+
+Use this policy across Vite apps: attempt one recovery reload within a 60-second window, suppress the error only for that recovery attempt, and let persistent failures reach the router error UI and error reporter. Do not filter all chunk-load errors out of Centry or Sentry.
+
+## Copyable browser helper
+
+Copy this into `src/lib/vite-preload-recovery.ts`. It has no React or error-SDK dependency.
+
+```ts
+export function installVitePreloadRecovery(
+  canReload: () => boolean = () => true,
+): () => void {
+  if (typeof window === "undefined") return () => {};
+
+  const key = "dx:vite-preload-recovery";
+  const cooldownMs = 60_000;
+  let recovering = false;
+
+  const onPreloadError = (event: Event) => {
+    // Concurrent imports can fail while the first reload is starting.
+    if (recovering) {
+      event.preventDefault();
+      return;
+    }
+
+    if (!canReload()) return;
+
+    try {
+      const now = Date.now();
+      const lastAttempt = window.sessionStorage.getItem(key);
+      const elapsed = now - Number(lastAttempt);
+      if (lastAttempt !== null && elapsed < cooldownMs) return;
+
+      // Persist BEFORE reloading so another page load cannot loop.
+      window.sessionStorage.setItem(key, String(now));
+    } catch {
+      // If storage is unavailable, keep the normal error path.
+      return;
+    }
+
+    recovering = true;
+    event.preventDefault();
+    window.location.reload();
+  };
+
+  window.addEventListener("vite:preloadError", onPreloadError);
+  return () => window.removeEventListener("vite:preloadError", onPreloadError);
+}
+```
+
+Install once in the browser entry point, before creating the router or hydrating React:
+
+```ts
+import { installVitePreloadRecovery } from "./lib/vite-preload-recovery";
+
+if (import.meta.env.PROD) {
+  installVitePreloadRecovery();
+}
+```
+
+For TanStack Start, use the client entry point, not a server module. The returned function removes the listener if your initialization lifecycle needs cleanup. Replace any existing unguarded preload-reload listener rather than registering both.
+
+## Why call preventDefault?
+
+Call `event.preventDefault()` only when taking responsibility for recovery. It prevents Vite from throwing the original error while the reload starts. Calling `window.location.reload()` alone does not stop that error from propagating.
+
+If the reload fails to recover and another preload error occurs within 60 seconds, the helper leaves the event untouched: no second automatic reload, and the original error propagates normally. Existing router error UI and reporting can then handle it. The cooldown expires naturally; do not clear the stored marker on startup or on a timer, which would allow failed startup to loop.
+
+If storage is unavailable or a reload is declined, the normal error path also remains active. This helper cannot recover a missing initial entry script that never runs, and a reload that fails before JavaScript starts cannot be reported by the browser SDK.
+
+## Apps with unsaved edits
+
+Automatic reload is suitable when losing local state is acceptable. For editors or transaction forms, pass a callback that checks your existing dirty-state flag and asks before discarding edits:
+
+```ts
+installVitePreloadRecovery(() =>
+  !hasUnsavedChanges() ||
+  window.confirm("Reload to recover this page? Unsaved changes will be lost."),
+);
+```
+
+`hasUnsavedChanges()` is supplied by the consuming app. Returning `false` keeps the error visible instead of silently abandoning recovery.
+
+## Hosting and caches
+
+Serve HTML with `Cache-Control: no-cache` so the browser revalidates it and obtains current chunk references. Hashed assets can use long-lived immutable caching. If a service worker serves the HTML, make sure its update strategy also allows recovery to receive the current application shell; an HTTP header alone cannot fix stale service-worker content.
+
+Where hosting supports it, retaining assets from previous deployments reduces these failures before a reload is needed.
+
+## Verify in a consuming app
+
+- Open a tab, deploy a build with changed chunk hashes, then navigate to a lazy route in the old tab. It should recover once.
+- Block a lazy chunk persistently. The first failure may reload; a failure after that reload must reach the error UI without another reload inside the cooldown.
+- Confirm that a declined reload or unavailable session storage preserves normal error reporting.
+- Confirm dirty-state protection in apps with unsaved edits.
+
+[Vite: load error handling](https://vite.dev/guide/build#load-error-handling) documents the event, `preventDefault()`, and HTML cache requirements.
