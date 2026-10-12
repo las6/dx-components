@@ -223,8 +223,35 @@ function ownFileMatcher(line: string) {
   );
 }
 
+function fallbackCopy(text: string): boolean {
+  try {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    textarea.style.pointerEvents = "none";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    const successful = document.execCommand("copy");
+    document.body.removeChild(textarea);
+    return successful;
+  } catch {
+    return false;
+  }
+}
+
 function copyToClipboard(text: string): Promise<void> {
-  return navigator.clipboard.writeText(text);
+  if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).catch(() => {
+      if (fallbackCopy(text)) return Promise.resolve();
+      return Promise.reject(new Error("Copy failed"));
+    });
+  }
+  if (fallbackCopy(text)) {
+    return Promise.resolve();
+  }
+  return Promise.reject(new Error("Copy unavailable"));
 }
 
 function ErrorBlock({
@@ -350,10 +377,14 @@ function DevErrorDisplay({
   const copyText = allMessages.join("\n\nCaused by: ") + "\n\n" + allStack;
 
   const handleCopy = useCallback(() => {
-    copyToClipboard(copyText).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    copyToClipboard(copyText)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {
+        // Ignore copy errors gracefully
+      });
   }, [copyText]);
 
   useEffect(() => {

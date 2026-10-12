@@ -60,6 +60,43 @@ describe("ErrorComponent", () => {
       expect(writeTextSpy).toHaveBeenCalled();
     });
 
+    it("uses execCommand fallback when navigator.clipboard.writeText is unavailable", async () => {
+      const user = userEvent.setup();
+      // Remove clipboard API
+      Object.defineProperty(navigator, "clipboard", {
+        value: undefined,
+        configurable: true,
+      });
+
+      const execCommandMock = vi.fn().mockReturnValue(true);
+      document.execCommand = execCommandMock;
+
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      await user.click(screen.getByText(/Copy error/));
+
+      expect(execCommandMock).toHaveBeenCalledWith("copy");
+      expect(await screen.findByText("Copied!")).toBeDefined();
+    });
+
+    it("uses execCommand fallback when navigator.clipboard.writeText rejects", async () => {
+      const user = userEvent.setup();
+      Object.defineProperty(navigator, "clipboard", {
+        value: {
+          writeText: vi.fn().mockRejectedValue(new Error("Permission denied")),
+        },
+        configurable: true,
+      });
+
+      const execCommandMock = vi.fn().mockReturnValue(true);
+      document.execCommand = execCommandMock;
+
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      await user.click(screen.getByText(/Copy error/));
+
+      expect(execCommandMock).toHaveBeenCalledWith("copy");
+      expect(await screen.findByText("Copied!")).toBeDefined();
+    });
+
     it("triggers reset when 'r' key is pressed", async () => {
       const user = userEvent.setup();
       render(<ErrorComponent error={testError} reset={resetFn} />);
