@@ -2,9 +2,19 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import { unified } from "@astrojs/markdown-remark";
+import { readFileSync } from "node:fs";
+
+const pkg = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf8"),
+);
 
 export default defineConfig({
   site: "https://dx-components.pages.dev",
+  vite: {
+    define: {
+      __APP_VERSION__: JSON.stringify(pkg.version),
+    },
+  },
   markdown: {
     processor: unified({
       remarkPlugins: [],
