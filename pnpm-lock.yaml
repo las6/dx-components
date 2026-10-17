@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       centry-client:
-        specifier: ^1.3.0
-        version: 1.3.0(react@19.2.7)
+        specifier: ^1.4.0
+        version: 1.4.0(react@19.2.7)
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^7.2.1
@@ -1533,8 +1533,8 @@ packages:
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
 
-  centry-client@1.3.0:
-    resolution: {integrity: sha512-cMb7eTxmso9N3u8y3na6q6twst1IY8dWzNi5hei/nPqTkUxd4x/pcMeJRJ/UhtjsRLDTc9up1cyEAaw3V7RFDw==}
+  centry-client@1.4.0:
+    resolution: {integrity: sha512-X7nWFAC3/JBggaghDYW2AyJnB87fNEI6S+HwlgvcOBNrMnEyitl/pXVuxHjh4fGeoaQH5W5HjnW+OFQZCgIe7w==}
     peerDependencies:
       react: ^19.0.0
 
@@ -4806,7 +4806,7 @@ snapshots:
 
   ccount@2.0.1: {}
 
-  centry-client@1.3.0(react@19.2.7):
+  centry-client@1.4.0(react@19.2.7):
     dependencies:
       react: 19.2.7
 

@@ -55,6 +55,6 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
-    "centry-client": "^1.3.0"
+    "centry-client": "^1.4.0"
   }
 }
