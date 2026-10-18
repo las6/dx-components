@@ -60,6 +60,58 @@ describe("ErrorComponent", () => {
       expect(writeTextSpy).toHaveBeenCalled();
     });
 
+    it("uses execCommand fallback when navigator.clipboard.writeText is unavailable", async () => {
+      const user = userEvent.setup();
+      // Remove clipboard API
+      Object.defineProperty(navigator, "clipboard", {
+        value: undefined,
+        configurable: true,
+      });
+
+      const execCommandMock = vi.fn().mockReturnValue(true);
+      document.execCommand = execCommandMock;
+
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      await user.click(screen.getByText(/Copy error/));
+
+      expect(execCommandMock).toHaveBeenCalledWith("copy");
+      expect(await screen.findByText("Copied!")).toBeDefined();
+    });
+
+    it("uses execCommand fallback when navigator.clipboard.writeText rejects", async () => {
+      const user = userEvent.setup();
+      Object.defineProperty(navigator, "clipboard", {
+        value: {
+          writeText: vi.fn().mockRejectedValue(new Error("Permission denied")),
+        },
+        configurable: true,
+      });
+
+      const execCommandMock = vi.fn().mockReturnValue(true);
+      document.execCommand = execCommandMock;
+
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      await user.click(screen.getByText(/Copy error/));
+
+      expect(execCommandMock).toHaveBeenCalledWith("copy");
+      expect(await screen.findByText("Copied!")).toBeDefined();
+    });
+
+    it.each([false, 'throw'])("cleans up and restores focus when fallback fails: %s", async failure => {
+      const user = userEvent.setup();
+      Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
+      document.execCommand = vi.fn(() => {
+        if (failure === 'throw') throw new Error('Denied');
+        return false;
+      });
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      const button = screen.getByText(/Copy error/).closest('button')!;
+      await user.click(button);
+      expect(document.querySelector('textarea')).toBeNull();
+      expect(document.activeElement).toBe(button);
+      expect(screen.queryByText('Copied!')).toBeNull();
+    });
+
     it("triggers reset when 'r' key is pressed", async () => {
       const user = userEvent.setup();
       render(<ErrorComponent error={testError} reset={resetFn} />);
@@ -197,6 +249,21 @@ describe("ErrorComponent", () => {
       render(<ErrorPage title="Custom title" message="Custom message" />);
       expect(screen.getByText("Custom title")).toBeDefined();
       expect(screen.getByText("Custom message")).toBeDefined();
+    });
+
+    it.each([false, 'throw'])("cleans up and restores focus when fallback fails: %s", async failure => {
+      const user = userEvent.setup();
+      Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
+      document.execCommand = vi.fn(() => {
+        if (failure === 'throw') throw new Error('Denied');
+        return false;
+      });
+      render(<ErrorComponent error={testError} reset={resetFn} />);
+      const button = screen.getByText(/Copy error/).closest('button')!;
+      await user.click(button);
+      expect(document.querySelector('textarea')).toBeNull();
+      expect(document.activeElement).toBe(button);
+      expect(screen.queryByText('Copied!')).toBeNull();
     });
 
     it("triggers reset when 'r' key is pressed", async () => {
