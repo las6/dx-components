@@ -117,6 +117,24 @@ export const Route = createFileRoute("/slow")({
 - **Copy-paste** — each file is self-contained, adapt styles to your project
 - **No build step** — components ship as source `.tsx`, your bundler handles compilation
 
+## Maintaining this repository
+
+Use Node 24.16.0 (the version in `.node-version`) and pnpm 10.33.0. The root documentation/test package and the independent `dev/` preview each have their own pnpm lockfile. Stale npm lockfiles and the stray tracked preview build HTML have been removed; generated builds stay ignored. Consumer installation with npm remains supported.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm test
+pnpm typecheck
+pnpm lint
+pnpm version:check
+pnpm docs:build
+pnpm --dir dev install --frozen-lockfile
+pnpm --dir dev build
+pnpm dev
+```
+
+Cloudflare Pages builds `main` with `pnpm run docs:build` into `dist`; Git pushes trigger deployment. See [the maintenance checkpoint](./docs/MAINTENANCE.md) for the current dependency result and clipboard verification.
+
 ## License
 
 MIT

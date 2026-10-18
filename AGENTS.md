@@ -24,5 +24,8 @@ README.md                  # usage per framework variant
 - No monorepo, separate Vercel deploys
 - Copy model is proven DX (shadcn)
 
-## Blocked on
-- Fix error display task (96a3ad60) — validates the canonical component first
+## Current maintenance
+- Error display components are implemented and validated; the original blocked task is historical.
+- Use the project Node version in `.node-version` and the declared pnpm version.
+- Root and `dev/` are independent installs; validate both when updating dependencies.
+- See `docs/MAINTENANCE.md` for the latest completed checkpoint.
