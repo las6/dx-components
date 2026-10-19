@@ -37,10 +37,35 @@ const STYLES = `
     align-items: center;
     justify-content: center;
 
+    & .dx-pending__content {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    & .dx-pending__spinner {
+      width: 1rem;
+      height: 1rem;
+      color: var(--dx-muted);
+      animation: dx-pending-spin 0.8s linear infinite;
+    }
+
     & .dx-pending__text {
       color: var(--dx-muted);
       font-size: 0.875rem;
       transition: opacity 0.2s ease;
+    }
+  }
+
+  @keyframes dx-pending-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dx-pending__spinner {
+      animation: none;
     }
   }
 `;
@@ -65,9 +90,32 @@ export function PendingComponent() {
         aria-label="Loading"
         suppressHydrationWarning
       >
-        <span className="dx-pending__text">
-          Loading<span aria-hidden="true">{dots}</span>
-        </span>
+        <div className="dx-pending__content">
+          <svg
+            className="dx-pending__spinner"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              opacity="0.2"
+            />
+            <path
+              d="M12 3a9 9 0 0 1 9 9"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="dx-pending__text">
+            Loading<span aria-hidden="true">{dots}</span>
+          </span>
+        </div>
       </div>
     </>
   );

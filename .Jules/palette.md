@@ -29,3 +29,7 @@
 ## 2026-06-25 - ARIA controls relationship for collapsible stack traces
 **Learning:** Expandable disclosure buttons controlling the visibility of stack trace frames require an `aria-controls` attribute referencing the unique container ID (generated via `useId()`) so assistive technology users can directly associate and navigate between the toggle button and the target frame element.
 **Action:** Always pair `aria-expanded` on toggle buttons with `aria-controls={containerId}` referencing the controlled container's `id`.
+
+## 2026-07-01 - Reduced-motion support for animated loading spinners
+**Learning:** When adding CSS keyframe animations for visual loading spinners, always include a `@media (prefers-reduced-motion: reduce)` media query to pause continuous rotation for users sensitive to motion, while maintaining non-visual status indicators (`role="status"` and `aria-label`).
+**Action:** Always pair animated spinners with `aria-hidden="true"`, accessible parent status labels, and `@media (prefers-reduced-motion: reduce)` to disable keyframe animation when requested.

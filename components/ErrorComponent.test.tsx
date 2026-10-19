@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { ErrorComponent } from "./ErrorComponent";
 import { ErrorPage } from "./ErrorPage";
 import { NotFoundComponent } from "./NotFoundComponent";
+import { PendingComponent } from "./PendingComponent";
 
 describe("ErrorComponent", () => {
   const testError = new Error("Test error message");
@@ -315,6 +316,20 @@ describe("ErrorComponent", () => {
       const clickSpy = vi.spyOn(link, "click");
       await user.keyboard("h");
       expect(clickSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("PendingComponent", () => {
+    it("renders with role status, aria-label, spinner, and loading text", () => {
+      render(<PendingComponent />);
+      const statusElement = screen.getByRole("status", { name: "Loading" });
+      expect(statusElement).toBeDefined();
+
+      const spinnerSvg = statusElement.querySelector("svg.dx-pending__spinner");
+      expect(spinnerSvg).not.toBeNull();
+      expect(spinnerSvg?.getAttribute("aria-hidden")).toBe("true");
+
+      expect(screen.getByText(/Loading/)).toBeDefined();
     });
   });
 });
