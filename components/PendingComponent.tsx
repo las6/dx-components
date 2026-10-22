@@ -1,5 +1,4 @@
 // @source dx-components/PendingComponent v1.2.2
-import { useState, useEffect } from "react";
 
 const STYLES = `
   .dx-error, .dx-error-page, .dx-not-found, .dx-pending {
@@ -40,21 +39,27 @@ const STYLES = `
     & .dx-pending__text {
       color: var(--dx-muted);
       font-size: 0.875rem;
-      transition: opacity 0.2s ease;
     }
+
+    & .dx-pending__dots {
+      display: inline-block;
+      animation: dx-pending-dots 1.6s step-end infinite;
+    }
+  }
+
+  @keyframes dx-pending-dots {
+    0%, 100% { clip-path: inset(0 100% 0 0); }
+    25% { clip-path: inset(0 66.6667% 0 0); }
+    50% { clip-path: inset(0 33.3333% 0 0); }
+    75% { clip-path: inset(0 0 0 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dx-pending .dx-pending__dots { animation: none; }
   }
 `;
 
 export function PendingComponent() {
-  const [dots, setDots] = useState("");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
-    }, 400);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <>
       <style>{STYLES}</style>
@@ -66,7 +71,7 @@ export function PendingComponent() {
         suppressHydrationWarning
       >
         <span className="dx-pending__text">
-          Loading<span aria-hidden="true">{dots}</span>
+          Loading<span className="dx-pending__dots" aria-hidden="true">...</span>
         </span>
       </div>
     </>
