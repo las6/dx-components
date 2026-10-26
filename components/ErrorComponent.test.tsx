@@ -25,7 +25,8 @@ describe("ErrorComponent", () => {
     it("renders the full dev overlay with badge and stack", () => {
       render(<ErrorComponent error={testError} reset={resetFn} />);
       expect(screen.getByText("Error")).toBeDefined();
-      expect(screen.getByText("Test error message")).toBeDefined();
+      expect(screen.getByRole("heading", { level: 1, name: "Test error message" })).toBeDefined();
+      expect(screen.getByRole("main")).toBeDefined();
       expect(screen.getByText("myFunc")).toBeDefined();
       expect(screen.getByText("/src/App.tsx:10:5")).toBeDefined();
       expect(screen.getByText(/Copy error/)).toBeDefined();
@@ -241,7 +242,8 @@ describe("ErrorComponent", () => {
   describe("standalone ErrorPage", () => {
     it("renders with default title and message", () => {
       render(<ErrorPage />);
-      expect(screen.getByText("This page couldn't load")).toBeDefined();
+      expect(screen.getByRole("main")).toBeDefined();
+      expect(screen.getByRole("heading", { level: 1, name: "This page couldn't load" })).toBeDefined();
       expect(screen.getByText("Something went wrong. Please try again.")).toBeDefined();
     });
 
@@ -285,8 +287,9 @@ describe("ErrorComponent", () => {
   describe("NotFoundComponent", () => {
     it("renders the 404 page with badge and actions", () => {
       render(<NotFoundComponent />);
+      expect(screen.getByRole("main")).toBeDefined();
+      expect(screen.getByRole("heading", { level: 1, name: "Page not found" })).toBeDefined();
       expect(screen.getByText("404")).toBeDefined();
-      expect(screen.getByText("Page not found")).toBeDefined();
       expect(screen.getByText("No route matched this URL.")).toBeDefined();
       expect(screen.getByText("Go back")).toBeDefined();
       expect(screen.getByText("Go home")).toBeDefined();

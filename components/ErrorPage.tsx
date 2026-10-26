@@ -65,13 +65,13 @@ const STYLES = `
       color: var(--dx-text);
       font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin: 0 0 0.5rem 0;
     }
 
     & .dx-error-page__message {
       color: var(--dx-muted);
       font-size: 0.8125rem;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1.5rem 0;
     }
 
     & .dx-error-page__actions {
@@ -178,15 +178,15 @@ export function ErrorPage({
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error-page" data-dx-version="1.2.2" suppressHydrationWarning>
+      <main className="dx-error-page" data-dx-version="1.2.2" suppressHydrationWarning>
         <div className="dx-error-page__card">
           <div className="dx-error-page__icon">
             <span className="dx-error-page__icon-mark" aria-hidden="true">
               !
             </span>
           </div>
-          <div className="dx-error-page__title">{title}</div>
-          <div className="dx-error-page__message">{message}</div>
+          <h1 className="dx-error-page__title">{title}</h1>
+          <p className="dx-error-page__message">{message}</p>
           <div className="dx-error-page__actions">
             <button
               type="button"
@@ -212,7 +212,7 @@ export function ErrorPage({
             </button>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

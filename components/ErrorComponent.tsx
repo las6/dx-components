@@ -67,7 +67,7 @@ const STYLES = `
       color: var(--dx-accent);
       font-size: 0.9375rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin: 0 0 1rem 0;
       word-break: break-word;
     }
 
@@ -293,7 +293,7 @@ function ErrorBlock({
         <span className="dx-error__badge">{label}</span>
       </div>
 
-      <div className="dx-error__message">{message}</div>
+      <h1 className="dx-error__message">{message}</h1>
 
       {frames.length > 0 && (
         <div className="dx-error__stack" id={stackFramesId}>
@@ -422,7 +422,7 @@ function DevErrorDisplay({
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-error" data-dx-version="1.2.2" suppressHydrationWarning>
+      <main className="dx-error" data-dx-version="1.2.2" suppressHydrationWarning>
         <ErrorBlock label="Error" message={message} stack={stack} />
 
         {subtitle && (
@@ -469,7 +469,7 @@ function DevErrorDisplay({
             </kbd>
           </button>
         </div>
-      </div>
+      </main>
     </>
   );
 }

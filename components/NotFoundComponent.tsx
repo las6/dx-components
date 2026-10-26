@@ -53,13 +53,13 @@ const STYLES = `
       color: var(--dx-text);
       font-size: 0.9375rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin: 0 0 0.5rem 0;
     }
 
     & .dx-not-found__message {
       color: var(--dx-muted);
       font-size: 0.8125rem;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1.5rem 0;
     }
 
     & .dx-not-found__actions {
@@ -152,10 +152,10 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
   return (
     <>
       <style>{STYLES}</style>
-      <div className="dx-not-found" data-dx-version="1.2.2" suppressHydrationWarning>
+      <main className="dx-not-found" data-dx-version="1.2.2" suppressHydrationWarning>
         <span className="dx-not-found__badge">404</span>
-        <div className="dx-not-found__title">Page not found</div>
-        <div className="dx-not-found__message">No route matched this URL.</div>
+        <h1 className="dx-not-found__title">Page not found</h1>
+        <p className="dx-not-found__message">No route matched this URL.</p>
         <div className="dx-not-found__actions">
           <button
             type="button"
@@ -180,7 +180,7 @@ export function NotFoundComponent(_props: NotFoundComponentProps) {
             </kbd>
           </a>
         </div>
-      </div>
+      </main>
     </>
   );
 }
