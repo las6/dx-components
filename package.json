@@ -1,6 +1,6 @@
 {
   "name": "dx-components",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Copy-paste-ready DX components for Vite + TanStack",
   "type": "module",
   "exports": {
@@ -34,29 +34,29 @@
     "url": "https://github.com/las6/dx-components"
   },
   "devDependencies": {
-    "@astrojs/markdown-remark": "^7.3.3",
-    "@astrojs/react": "^7.1.0",
-    "@astrojs/starlight": "^0.42.6",
+    "@astrojs/markdown-remark": "^7.3.9",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/starlight": "^0.43.1",
     "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.8",
+    "@testing-library/user-event": "^14.6.10",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "astro": "^7.4.0",
-    "eslint": "^10.13.0",
+    "astro": "^7.4.12",
+    "eslint": "^10.15.0",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "jsdom": "^30.1.3",
+    "jsdom": "^31.0.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "sharp": "^0.35.5",
-    "typescript-eslint": "^8.71.2",
-    "vite": "^8.3.4",
-    "vitest": "^5.0.5",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   },
   "dependencies": {
-    "centry-client": "^1.4.0"
+    "centry-client": "^1.4.1"
   },
   "packageManager": "pnpm@10.33.0",
   "engines": {
